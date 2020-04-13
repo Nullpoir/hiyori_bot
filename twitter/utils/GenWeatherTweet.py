@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+from django.conf import settings
 
 DIRECTION = [
     '北',
@@ -24,8 +25,8 @@ DIRECTION = [
 def GenWeatherTweet(location):
     abs_zero = 273.15
     #APIに投げるURLを生成
-    url = os.environ.get('OPENWETHERMAP_URL')
-    appid = os.environ.get('OPENWETHERMAP_API_KEY')
+    url = settings.OPENWETHERMAP_URL
+    appid = settings.OPENWETHERMAP_API_KEY
     query_url = url + '?q=' + location + '&appid=' + appid
 
     #APIからJSONをもらう
