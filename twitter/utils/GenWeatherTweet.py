@@ -22,6 +22,24 @@ DIRECTION = [
     '北北西',
 ]
 
+WEATHER = {
+    "Rain":"雨",
+    "Clear":"快晴",
+    "Clouds":"くもり",
+    "Mist":"霧雨",
+    "Smoke":"煙霧",
+    "Haze":"薄霧",
+    "Snow":"雪",
+    "Drizzle":"霧雨",
+    "Thunderstorm":"雷雨",
+    "Squall":"スコール",
+    "Tornado":"竜巻",
+    "Ash":"火山灰",
+    "Fog":"煙霧",
+    "Dust":"砂塵",
+    "Sand":"砂塵"
+}
+
 def GenWeatherTweet(location):
     abs_zero = 273.15
     #APIに投げるURLを生成
@@ -32,7 +50,7 @@ def GenWeatherTweet(location):
     #APIからJSONをもらう
     weather_dict = requests.get(query_url).json()
 
-    weather = weather_dict['weather'][0]['main']
+    weather = WEATHER[weather_dict['weather'][0]['main']]
     temp = round(weather_dict['main']['temp']-abs_zero,1)
     feel_temp = round(weather_dict['main']['feels_like']-abs_zero,1)
     humidity = weather_dict['main']['humidity']
@@ -76,14 +94,3 @@ def GenWeatherTweet(location):
         tweet = report + temp_imp + wind_imp
 
     return tweet
-
-#テストラン用
-if __name__ == '__main__':
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from dotenv import load_dotenv
-    #環境変数ロード
-    load_dotenv(verbose=True)
-    dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-    load_dotenv(dotenv_path)
-
-    print(GenWeatherTweet('Yokosuka'))
