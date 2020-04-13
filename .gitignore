@@ -1,0 +1,5 @@
+hiyori_bot/settings/.env
+db.sqlite3
+media/
+auth/
+twitter/markov_chain/source.txt
