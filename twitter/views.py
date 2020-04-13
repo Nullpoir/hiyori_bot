@@ -9,6 +9,7 @@ from django.conf import settings
 import tweepy
 from .markov_chain.markov import Markov
 import os
+from . import utils
 
 
 # Create your views here.
@@ -50,11 +51,16 @@ class TwitterEndPointView(View):
             api = tweepy.API(auth)
             # print("API CREATE")
 
-            #とりあえずマルコフで生成
-            markov = Markov(base+"/markov_chain/model.pyd")
-            tweet = markov.make_sentence()
-            tweet= tweet.strip('[BOS]').strip("\n")
-            #返信
+            state = utils.ClassifyTweet(status['text'])
+            if state == "markov":
+                #とりあえずマルコフで生成
+                markov = Markov(base+"/markov_chain/model.pyd")
+                tweet = markov.make_sentence()
+                tweet= tweet.strip('[BOS]').strip("\n")
+            elif state == "weather":
+                tweet = utils.GenWeatherTweet("Yokosuka")
+
+            #リプライ送信
             res = api.update_status(
                 status=tweet,
                 in_reply_to_status_id=status['id'],
