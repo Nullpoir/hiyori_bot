@@ -36,14 +36,14 @@ class TwitterEndPointView(View):
             msg=bytes(request.body),
             digestmod=hashlib.sha256
         )
-        signature = request.META['HTTP_X_TWITTER_WEBHOOKS_SIGNATURE']
-        req = json.loads(request.body)
+        signature = request.META['HTTP_X_TWITTER_WEBHOOKS_SIGNATURE'][7:].encode('utf-8')
         digested = base64.b64encode(validation.digest())
-        print('sha256='+str(digested),signature)
-        if 'sha256='+str(digested) == signature:
-            print("OK")
+
+        if not hmac.compare_digest(signature,digested):
+            return HttpResponseForbidden()
         # print(req)
 
+        req = json.loads(request.body)
         # 認証
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
         auth.set_access_token(settings.TWITTER_TOKEN, settings.TWITTER_TOKEN_SECRET)
