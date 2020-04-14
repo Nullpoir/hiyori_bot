@@ -1,5 +1,4 @@
 from .base import *
-from celery.schedules import crontab
 
 DEBUG = False
 
