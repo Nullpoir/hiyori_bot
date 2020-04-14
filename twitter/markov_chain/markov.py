@@ -1,5 +1,6 @@
 import re
 import MeCab
+import pickle
 from collections import deque
 import random
 import json
