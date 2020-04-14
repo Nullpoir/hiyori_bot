@@ -8,49 +8,14 @@ import pickle
 import re
 import MeCab
 from collections import deque
-import json
-
-def gen_markov_model(text,order):
-    model = {}
-    wordlist = wakati(text)
-    queue = deque([], order)
-    queue.append("[BOS]")
-    for markov_value in wordlist:
-        if len(queue) == order:
-            if queue[-1] == "。":
-                markov_key = tuple(queue)
-                if markov_key not in model:
-                    model[markov_key] = []
-                model[markov_key].append("[BOS]")
-                queue.append("[BOS]")
-
-            markov_key = tuple(queue)
-            if markov_key not in model:
-                model[markov_key] = []
-            model[markov_key].append(markov_value)
-        queue.append(markov_value)
-    return model
-
-def wakati(text):
-    t = MeCab.Tagger("-Owakati")
-    parsed_text = ""
-    for one_line_text in one_sentence_generator(text):
-        parsed_text += " "
-        parsed_text += t.parse(one_line_text)
-    wordlist = parsed_text.rstrip("\n").split(" ")
-    return wordlist
-
-def one_sentence_generator(long_text):
-    sentences = re.findall(".*?。", long_text)
-    for sentence in sentences:
-        yield sentence
+from twitter.markov_chain.utils import gen_markov_model
 
 class Markov_pass_error(Exception):
     pass
 
 class Markov():
     order = 2
-    def __init__(self,file):
+    def __init__(self,file=os.path.dirname(__file__)+"/model.pyd"):
         ext = os.path.splitext(file)[1]
         if ext == '.txt':
             f = open(file,'r')
@@ -65,7 +30,7 @@ class Markov():
 
 
     def __make_model(self,text,order):
-        return gen_markov_model(text,order)
+        return utils.gen_markov_model(text,order)
 
     def make_sentence(self,sentence_num=1, seed="[BOS]", max_words = 1000):
         sentence_count = 0

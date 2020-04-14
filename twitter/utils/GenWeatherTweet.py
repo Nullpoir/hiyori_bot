@@ -41,6 +41,9 @@ WEATHER = {
 }
 
 def GenWeatherTweet(location):
+    return GenWeatherTweetText(ApiConnection(location))
+
+def ApiConnection(location):
     abs_zero = 273.15
     #APIに投げるURLを生成
     url = settings.OPENWETHERMAP_URL
@@ -48,14 +51,28 @@ def GenWeatherTweet(location):
     query_url = url + '?q=' + location + '&appid=' + appid
 
     #APIからJSONをもらう
-    weather_dict = requests.get(query_url).json()
+    response = requests.get(query_url)
+    weather_dict = response.json()
+    if response.status_code != 200:
+        return "すみません。わかりませんでした・・・"
 
-    weather = WEATHER[weather_dict['weather'][0]['main']]
-    temp = round(weather_dict['main']['temp']-abs_zero,1)
-    feel_temp = round(weather_dict['main']['feels_like']-abs_zero,1)
-    humidity = weather_dict['main']['humidity']
-    wind_speed = weather_dict['wind']['speed']
-    wind_direction = DIRECTION[int(weather_dict['wind']['deg']/22.5)]
+    weather_data = [
+        WEATHER[weather_dict['weather'][0]['main']],
+        round(weather_dict['main']['temp']-abs_zero,1),
+        round(weather_dict['main']['feels_like']-abs_zero,1),
+        weather_dict['main']['humidity'],
+        weather_dict['wind']['speed'],
+        DIRECTION[int(weather_dict['wind']['deg']/22.5)],
+    ]
+    return weather_data
+
+def GenWeatherTweetText(weather_data):
+    weather = weather_data[0]
+    temp = weather_data[1]
+    feel_temp = weather_data[2]
+    humidity = weather_data[3]
+    wind_speed = weather_data[4]
+    wind_direction = weather_data[5]
 
     report =str().join([
         'げ、現在の横須賀の天気は'
@@ -75,18 +92,20 @@ def GenWeatherTweet(location):
     if weather == "Rain" or weather == "Snow":
         tweet = report + "今日の釣りはいいかな・・・"
     else:
-        if feel_temp < 25 and feel_temp >= 10:
+        if temp < 25 and feel_temp >= 10:
             temp_imp = "今日は暖かいですね、"
-        elif feel_temp >= 25:
+        elif temp >= 25:
             temp_imp = "今日は暑いですね・・・"
-        elif feel_temp < 10:
+        elif temp < 10:
             temp_imp = "今日は寒いですね・・・"
 
         if wind_speed > 4:
             wind_imp = "ただ風が強いから釣りは難しそう"
-        elif (feel_temp >= 25 or feel_temp < 0) and (wind_speed < 4):
+        elif (feel_temp >= 30 or feel_temp < 0) and (wind_speed < 4):
              wind_imp = "うう釣りはどうしようかな"
-        elif (feel_temp >= 25 or feel_temp > 0) and (wind_speed < 4):
+        elif (feel_temp < 10 and feel_temp > 0) and (wind_speed < 4):
+            wind_imp = "でも風は弱いし、小春を誘って釣りに行きたいな・・・"
+        elif (feel_temp < 30 and feel_temp >= 25) and (wind_speed < 4):
             wind_imp = "でも風は弱いし、小春を誘って釣りに行きたいな・・・"
         else:
             wind_imp = "小春を誘って釣りに行こうかな・・・"
