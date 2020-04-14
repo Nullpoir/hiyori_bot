@@ -23,6 +23,20 @@ load_dotenv(verbose=True)
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
+#twitter
+
+TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
+TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
+TWITTER_TOKEN = os.environ.get('TWITTER_TOKEN')
+TWITTER_TOKEN_SECRET = os.environ.get('TWITTER_TOKEN_SECRET')
+MY_ID = os.environ.get('MY_ID')
+
+DB_NAME = os.environ.get('DB_NAME')
+DB_USER = os.environ.get('DB_USER')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+
+OPENWETHERMAP_API_KEY = os.environ.get('OPENWETHERMAP_API_KEY')
+OPENWETHERMAP_URL = os.environ.get('OPENWETHERMAP_URL')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -44,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
     'twitter',
 ]
 
