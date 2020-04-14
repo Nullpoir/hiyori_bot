@@ -1,3 +1,8 @@
+import pickle
+import re
+import MeCab
+from collections import deque
+
 def gen_markov_model(text,order):
     model = {}
     wordlist = wakati(text)

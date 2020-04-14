@@ -1,4 +1,4 @@
-from markov_generate import *
+from utils import gen_markov_model
 import sys
 import pickle
 

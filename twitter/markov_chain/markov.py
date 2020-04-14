@@ -4,10 +4,6 @@ from collections import deque
 import random
 import json
 import os
-import pickle
-import re
-import MeCab
-from collections import deque
 from twitter.markov_chain.utils import gen_markov_model
 
 class Markov_pass_error(Exception):
