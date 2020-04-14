@@ -30,8 +30,24 @@ class TwitterEndPointView(View):
 
     #実際のリクエスト処理
     def post(self, request, *args, **kwargs):
+        #入力検証
+        validation = hmac.new(
+            key=bytes(settings.TWITTER_CONSUMER_SECRET, 'utf-8'),
+            msg=bytes(request.body, 'utf-8'),
+            digestmod=hashlib.sha256
+        )
+        signature = request.META['HTTP_X_TWITTER_WEBHOOKS_SIGNATURE']
+        hmac.compare_digest(signature,validation)
         req = json.loads(request.body)
-        print(request.META)
+        print(validation,key,hmac.compare_digest(signature,validation))
+        # print(req)
+
+        # 認証
+        auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+        auth.set_access_token(settings.TWITTER_TOKEN, settings.TWITTER_TOKEN_SECRET)
+        # コネクション用のインスタンス作成
+        api = tweepy.API(auth)
+
         # print(req)
         # リプライが来たときの処理
         if req.get('tweet_create_events') != None:
@@ -42,12 +58,6 @@ class TwitterEndPointView(View):
                 print("banned\n","in_reply_to_user_id_str:",status['in_reply_to_user_id_str'],"\nMY_ID:",settings.MY_ID,"\n",status['user']['id'])
                 return JsonResponse({"State":"OK"})
 
-            # 認証
-            auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
-            auth.set_access_token(settings.TWITTER_TOKEN, settings.TWITTER_TOKEN_SECRET)
-            # コネクション用のインスタンス作成
-            api = tweepy.API(auth)
-            # print("API CREATE")
 
             state = utils.ClassifyTweet(status['text'])
             if state == "markov":
@@ -70,11 +80,7 @@ class TwitterEndPointView(View):
             id = req['follow_events'][0]['source']['id']
             if id == settings.MY_ID:
                 return JsonResponse({"State":"OK"})
-            #認証
-            auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
-            auth.set_access_token(settings.TWITTER_TOKEN, settings.TWITTER_TOKEN_SECRET)
-            #コネクション用のインスタンス作成
-            api = tweepy.API(auth)
+
             api.create_friendship(id)
 
         return JsonResponse({"State":"OK"})
