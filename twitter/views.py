@@ -10,6 +10,8 @@ import tweepy
 from .markov_chain.markov import Markov
 import os
 from . import utils
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
@@ -95,3 +97,7 @@ class TwitterEndPointView(View):
             api.create_friendship(id)
 
         return JsonResponse({"State":"OK"})
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(TwitterEndPointView, self).dispatch(request, *args, **kwargs)
