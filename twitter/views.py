@@ -36,9 +36,9 @@ class TwitterEndPointView(View):
             msg=bytes(request.body),
             digestmod=hashlib.sha256
         )
-        signature = request.META['HTTP_X_TWITTER_WEBHOOKS_SIGNATURE'][7:].encode('utf-8')
+        signature = request.META.get('HTTP_X_TWITTER_WEBHOOKS_SIGNATURE')[7:].encode('utf-8')
         digested = base64.b64encode(validation.digest())
-
+        print(request.META)
         if not hmac.compare_digest(signature,digested):
             return HttpResponseForbidden()
 
