@@ -36,9 +36,15 @@ class TwitterEndPointView(View):
             msg=bytes(request.body),
             digestmod=hashlib.sha256
         )
-        print(request.META)
+        # リクエストヘッダなしを弾く
+        if request.META.get('HTTP_X_TWITTER_WEBHOOKS_SIGNATURE') == None:
+            return HttpResponseForbidden()
+
+        #検証データ作成
         signature = request.META.get('HTTP_X_TWITTER_WEBHOOKS_SIGNATURE')[7:].encode('utf-8')
         digested = base64.b64encode(validation.digest())
+
+        #おかしな検証結果になったら弾く
         if not hmac.compare_digest(signature,digested):
             return HttpResponseForbidden()
 
