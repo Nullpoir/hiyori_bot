@@ -39,7 +39,7 @@ class TwitterEndPointView(View):
         signature = request.META['HTTP_X_TWITTER_WEBHOOKS_SIGNATURE']
         req = json.loads(request.body)
         digested = base64.b64encode(validation.digest())
-        print(validation,key,hmac.compare_digest(signature,format(str(digested)[2:-1])))
+        print(validation,signature,hmac.compare_digest(signature,format(str(digested)[2:-1])))
         # print(req)
 
         # 認証
