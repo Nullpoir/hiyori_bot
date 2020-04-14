@@ -41,7 +41,6 @@ class TwitterEndPointView(View):
 
         if not hmac.compare_digest(signature,digested):
             return HttpResponseForbidden()
-        # print(req)
 
         req = json.loads(request.body)
         # 認証
