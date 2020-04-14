@@ -8,7 +8,7 @@ AK = settings.TWITTER_TOKEN
 AS = settings.TWITTER_TOKEN_SECRET
 
 #毎朝4時に実行させるタスク
-@app.task
+@app.shared_task
 def morning_yokosuka_weather_report():
     tweet = GenWeatherTweet()
 
