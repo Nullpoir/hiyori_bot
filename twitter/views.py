@@ -33,7 +33,7 @@ class TwitterEndPointView(View):
         #入力検証
         validation = hmac.new(
             key=bytes(settings.TWITTER_CONSUMER_SECRET, 'utf-8'),
-            msg=bytes(request.body, 'utf-8'),
+            msg=bytes(request.body),
             digestmod=hashlib.sha256
         )
         signature = request.META['HTTP_X_TWITTER_WEBHOOKS_SIGNATURE']
