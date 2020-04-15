@@ -11,7 +11,7 @@ AS = settings.TWITTER_TOKEN_SECRET
 #毎朝4時に実行させるタスク
 @shared_task
 def morning_yokosuka_weather_report():
-    tweet = GenWeatherTweet()
+    tweet = GenWeatherTweet("Yokosuka")
 
     # 認証
     auth = tweepy.OAuthHandler(CK, CS)
