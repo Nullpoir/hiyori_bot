@@ -2,6 +2,7 @@ from hiyori_bot.settings.celery import app
 from twitter.utils.GenWeatherTweet import GenWeatherTweet
 from django.conf import settings
 from celery import shared_task
+import tweepy
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
