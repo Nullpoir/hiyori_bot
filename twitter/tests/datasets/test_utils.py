@@ -18,7 +18,11 @@ CLASSIFICATION_TESTS = [
 """,
 """@mHiyori0324
 MUGI TEA
-https://t.co/8WH8S0GDUv
+""",
+"""@mHiyori0324
+MUGITEA
+
+
 """
 ]
 #テキスト分類課題用正解データ
@@ -28,6 +32,7 @@ CLASSIFICATION_ANSWERS = [
     "CMD:weather",
     "CMD:weather",
     "CMD:weather",
+    "あはははh",
     "あはははh",
 ]
 #天気テキスト生成テストデータ
