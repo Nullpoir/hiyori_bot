@@ -64,7 +64,6 @@ class TwitterEndPointView(View):
         # コネクション用のインスタンス作成
         api = tweepy.API(auth)
 
-        # print(req)
         # リプライが来たときの処理
         if req.get('tweet_create_events') != None:
             status = req['tweet_create_events'][0]
@@ -73,7 +72,7 @@ class TwitterEndPointView(View):
             if (status['in_reply_to_user_id_str'] !=  MY_ID) or (status['user']['id'] == MY_ID):
                 return JsonResponse({"State":"OK"})
 
-
+            print(status['text'])
             state = utils.ClassifyTweet(status['text'])
             if state == "CMD:markov":
                 # とりあえずマルコフで生成
