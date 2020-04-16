@@ -10,7 +10,7 @@ class TalkSet(models.Model):
 
     def __str__(self):
         return self.name
-    def save():
+    def save(self,*args, **kwargs):
         text = self.trigger
 
         text = re.sub(r'@mHiyori0324', "", text)
@@ -22,4 +22,4 @@ class TalkSet(models.Model):
         text = re.sub('\？', "", text)
 
         self.trigger = text
-        super(TalkSet, self).save()
+        super(TalkSet, self).save(*args, **kwargs)
