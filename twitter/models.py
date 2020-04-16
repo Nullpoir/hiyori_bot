@@ -1,4 +1,5 @@
 from django.db import models
+import re
 
 # Create your models here.
 
@@ -9,3 +10,16 @@ class TalkSet(models.Model):
 
     def __str__(self):
         return self.name
+    def save():
+        text = self.trigger
+
+        text = re.sub(r'@mHiyori0324', "", text)
+        text = re.sub(r'https?://[\w/:%#\$&\?\(\)~\.=\+\-…]+', "", text)
+        text = re.sub('\n', "", text)
+        text = re.sub(' ', "", text)
+        text = re.sub('　', "", text)
+        text = re.sub('\?', "", text)
+        text = re.sub('\？', "", text)
+
+        self.trigger = text
+        super(TalkSet, self).save()

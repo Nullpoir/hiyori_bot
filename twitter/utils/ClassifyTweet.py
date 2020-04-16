@@ -2,7 +2,6 @@ import re
 from twitter.models import TalkSet
 
 def ClassifyTweet(text):
-    print(text)
     text = re.sub(r'@mHiyori0324', "", text)
     text = re.sub(r'https?://[\w/:%#\$&\?\(\)~\.=\+\-…]+', "", text)
     text = re.sub('\n', "", text)
