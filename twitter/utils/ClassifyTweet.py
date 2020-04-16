@@ -1,14 +1,10 @@
 import re
 from twitter.models import TalkSet
+from twitter.TextSanitize import TextSanitize
 
 def ClassifyTweet(text):
-    text = re.sub(r'@mHiyori0324', "", text)
-    text = re.sub(r'https?://[\w/:%#\$&\?\(\)~\.=\+\-…]+', "", text)
-    text = re.sub('\n', "", text)
-    text = re.sub(' ', "", text)
-    text = re.sub('　', "", text)
-    text = re.sub('\?', "", text)
-    text = re.sub('\？', "", text)
+    #テキスト整形
+    text = TextSanitize(text)
     print(text)
     talksets = TalkSet.objects.all()
     for t in talksets:

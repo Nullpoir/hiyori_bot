@@ -23,7 +23,22 @@ MUGI TEA
 MUGITEA
 
 
-"""
+""",
+"""@mHiyori0324
+「MUGITEA」
+
+
+""",
+"""@mHiyori0324
+「MUGITEA
+
+
+""",
+"""@mHiyori0324
+MUGITEA」
+
+
+""",
 ]
 #テキスト分類課題用正解データ
 CLASSIFICATION_ANSWERS = [
