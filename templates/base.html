@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja" id="mysite">
+<head>
+  <title>ひよりちゃんbot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+  <!-- 追加のCSSなど -->
+  {% block head %}
+  {% endblock %}
+</head>
+<body id="root">
+  <!-- ヘッダー -->
+  <header id="header">
+    ひよりちゃんbot
+  </header>
+  <!-- コンテンツ -->
+  <main id="content">
+  {% block content %}
+  {% endblock %}
+  </main>
+  <!-- フッター -->
+  <footer id="footer">
+    このサイトとbotが使用しているスローループに関するコンテンツの著作権はすべて芳文社ならびにうちのまいこ先生にあります。
+    <a href="">芳文社</a>
+    <a href="">うちのまいこ先生Twitter</a>
+  </footer>
+</body>
+<script src="{% static "js/main.js" %}"></script>
+</html>
