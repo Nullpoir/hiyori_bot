@@ -1,0 +1,58 @@
+/* 初期化 */
+* {
+  box-sizing: border-box;
+}
+img{
+  max-width:100%;
+  height: auto;
+}
+html{
+  font-size: 10px;
+}
+
+#body{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+}
+input::-webkit-input-placeholder { padding-top: 0; line-height: 1;}
+#root{
+  position: relative;
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+}
+/* ヘッダー */
+#header {
+  position: fixed;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 2rem;
+  width: 100%;
+}
+.header-logo {
+  display: block;
+}
+.header-github-icon{
+  display: block;
+}
+.header-github-icon{
+  color: #8ACDE7;
+}
+/* コンテンツ */
+#content{
+  padding-top: 50px;
+  flex:1;
+  min-height: 100vh;
+}
+/* フッター */
+#footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
