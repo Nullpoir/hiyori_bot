@@ -88,7 +88,8 @@ def GenWeatherTweetText(weather_data):
         ,wind_direction
         ,'から吹いてきます・・・\n'
     ])
-    print(weather == 'Rain')
+    temp_imp = ""
+    wind_imp = ""
     if weather == "Rain" or weather == "Snow":
         tweet = report + "今日の釣りはいいかな・・・"
     else:
