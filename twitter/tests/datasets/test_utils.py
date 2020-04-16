@@ -18,6 +18,7 @@ CLASSIFICATION_TESTS = [
 """,
 """@mHiyori0324
 MUGI TEA
+https://t.co/8WH8S0GDUv
 """
 ]
 #テキスト分類課題用正解データ
