@@ -1,5 +1,6 @@
 from django.db import models
 import re
+from .TextSanitize import TextSanitize
 
 # Create your models here.
 
@@ -12,14 +13,6 @@ class TalkSet(models.Model):
         return self.name
     def save(self,*args, **kwargs):
         text = self.trigger
-
-        text = re.sub(r'@mHiyori0324', "", text)
-        text = re.sub(r'https?://[\w/:%#\$&\?\(\)~\.=\+\-…]+', "", text)
-        text = re.sub('\n', "", text)
-        text = re.sub(' ', "", text)
-        text = re.sub('　', "", text)
-        text = re.sub('\?', "", text)
-        text = re.sub('\？', "", text)
-
+        text = TextSanitize(text)
         self.trigger = text
         super(TalkSet, self).save(*args, **kwargs)
