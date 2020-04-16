@@ -75,13 +75,15 @@ class TwitterEndPointView(View):
 
 
             state = utils.ClassifyTweet(status['text'])
-            if state == "markov":
+            if state == "CMD:markov":
                 # とりあえずマルコフで生成
                 markov = Markov()
                 tweet = markov.make_sentence()
                 tweet= tweet.strip('[BOS]').strip("\n")
-            elif state == "weather":
+            elif state == "CMD:weather":
                 tweet = utils.GenWeatherTweet("Yokosuka")
+            else:
+                tweet = state
 
             # リプライ送信
             res = api.update_status(

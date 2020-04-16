@@ -9,18 +9,25 @@ CLASSIFICATION_TESTS = [
 """@mHiyori0324
 天気を教えて、ひよりちゃん？""",
 """@mHiyori0324
+天気を教えて、ひよりちゃん?""",
+"""@mHiyori0324
 天気を教えて、ひよりちゃん
 
 
 
 """,
+"""@mHiyori0324
+MUGI TEA
+"""
 ]
 #テキスト分類課題用正解データ
 CLASSIFICATION_ANSWERS = [
-    "markov",
-    "weather",
-    "markov",
-    "weather",
+    "CMD:markov",
+    "CMD:weather",
+    "CMD:weather",
+    "CMD:weather",
+    "CMD:weather",
+    "あはははh",
 ]
 #天気テキスト生成テストデータ
 WEATHER_TEST_DATAS = [

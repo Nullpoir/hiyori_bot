@@ -1,17 +1,16 @@
 from django.test import TestCase
 from twitter.utils import *
 from . import datasets
+from twitter.models import TalkSet
 # Create your tests here.
 
 class test_utils(TestCase):
     def test_classification(self):
-
-        expect_returns = [
-            "markov",
-            "weather",
-            "markov",
-            "weather",
-        ]
+        TalkSet.objects.create(
+            name="麦テー",
+            trigger="MUGI TEA",
+            reply="あはははh"
+        )
         count = 1
         for t,e in zip(datasets.CLASSIFICATION_TESTS,datasets.CLASSIFICATION_ANSWERS):
             print(count)
