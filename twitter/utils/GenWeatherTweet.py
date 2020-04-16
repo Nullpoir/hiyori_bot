@@ -93,11 +93,11 @@ def GenWeatherTweetText(weather_data):
     if weather == "Rain" or weather == "Snow":
         tweet = report + "今日の釣りはいいかな・・・"
     else:
-        if temp < 25 and feel_temp >= 10:
+        if feel_temp < 25 and feel_temp >= 10:
             temp_imp = "今日は暖かいですね、"
-        elif temp >= 25:
+        elif feel_temp >= 25:
             temp_imp = "今日は暑いですね・・・"
-        elif temp < 10:
+        elif feel_temp < 10:
             temp_imp = "今日は寒いですね・・・"
 
         if wind_speed > 4:
