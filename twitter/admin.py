@@ -4,7 +4,7 @@ from .models import TalkSet
 # Register your models here.
 
 class TalkSetAdmin(admin.ModelAdmin):
-    fields = ('name','trigger_body','reply','trigger')
+    fields = ('name','trigger_body','reply')
     form = TalkSetAdminForm
 
 admin.site.register(TalkSet,TalkSetAdmin)
