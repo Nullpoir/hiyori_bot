@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<table>
+  <thead>
+    <tr>
+      <th>応答名</th>
+      <th>キーツイート</th>
+    </tr>
+  </thead>
+{% for talk in fixed_replies %}
+  <tr>
+    <td>{{ talk.name }}</td>
+    <td>{{ talk.trigger_body }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}
