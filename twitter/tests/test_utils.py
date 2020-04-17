@@ -8,7 +8,7 @@ class test_utils(TestCase):
     def test_classification(self):
         TalkSet.objects.create(
             name="麦テー",
-            trigger="MUGITEA",
+            trigger_body="MUGI TEA",
             reply="あはははh"
         )
         count = 1

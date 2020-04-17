@@ -9,6 +9,17 @@ img{
 html{
   font-size: 10px;
 }
+table {
+   border-collapse: collapse;
+   border: 2px solid #010101;
+}
+th {
+  border-bottom: double 1px #010101;
+  background-color: #ddd;
+}
+td {
+   border-bottom: solid 1px #010101;
+}
 
 #body{
   margin: 0;
