@@ -17,3 +17,7 @@ class TalkSet(models.Model):
         text = TextSanitize(text)
         self.trigger = text
         super(TalkSet, self).save(*args, **kwargs)
+
+class TwitterUser(models.Model):
+    twitter_id = models.CharField(max_length=19)
+    closeness = models.PositiveIntegerField()
