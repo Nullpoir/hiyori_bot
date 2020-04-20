@@ -21,3 +21,5 @@ class TalkSet(models.Model):
 class TwitterUser(models.Model):
     twitter_id = models.CharField(max_length=19)
     closeness = models.PositiveIntegerField()
+    last_mentioned = models.DateTimeField(blank=True)
+    
