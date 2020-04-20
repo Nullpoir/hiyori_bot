@@ -24,3 +24,11 @@ class test_utils(TestCase):
             t = GenWeatherTweetText(w)
             #print(t)
             self.assertEqual(t,a)
+    def test_random_reply(self):
+        trigger = "MUGI TEA"
+        TalkSet.objects.create(
+            name="麦テー",
+            trigger_body=trigger,
+            reply="あはははh,おほほほh,fjnqwiofn,fwefnioewfnoiw,fwfgiuweb"
+        )
+        print(ClassifyTweet(trigger))
