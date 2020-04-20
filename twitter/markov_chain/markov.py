@@ -5,7 +5,10 @@ from collections import deque
 import random
 import json
 import os
-from twitter.markov_chain.utils import gen_markov_model
+if __name__ == "__main__":
+    from utils import gen_markov_model
+else:
+    from twitter.markov_chain.utils import gen_markov_model
 
 class Markov_pass_error(Exception):
     pass
