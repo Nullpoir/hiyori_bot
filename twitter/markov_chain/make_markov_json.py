@@ -14,4 +14,20 @@ def make_markov_json_model(file,order):
 
 if __name__=='__main__':
     args = sys.argv
-    make_markov_json_model(args[1],int(args[2]))
+
+    i = open("source.md","r")
+    o = open("source.txt","w")
+
+    for line in i.readlines():
+        line = line.strip("\n")
+        if line[0] == "#":
+            pass
+        elif line[-1] != "。":
+            o.write(line + "。\n")
+        else:
+            o.write(line + "\n")
+
+    i.close()
+    o.close()
+
+    make_markov_json_model("source.txt",int(args[1]))
