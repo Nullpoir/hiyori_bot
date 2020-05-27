@@ -44,3 +44,19 @@ def sheduled_tweet():
     # ツイート送信
     res = api.update_status(tweet)
     print(res)
+
+#まいこ先生tweet収集
+@shared_task
+def get_maiko_tweets():
+    # 認証
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AK, AS)
+    # コネクション用のインスタンス作成
+    api = tweepy.API(auth)
+
+    #まいこ先生Tweet取得
+    for status in api.user_timeline(id='uma401'):
+        #見映えのため区切る
+        print('-------------------------------------------')
+        #内容表示
+        print(status.text)
