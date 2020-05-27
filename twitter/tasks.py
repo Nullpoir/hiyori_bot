@@ -58,8 +58,8 @@ def get_maiko_tweets():
     for status in api.user_timeline(id='initrd0324'):
         # RTとリプライを除外
         if ((not status.retweeted) and ('RT @' not in status.text)) or (status.in_reply_to_status_id != None):
-            print("除外tweet")
-            print(status.text,status.retweeted,status.in_reply_to_status_id)
+            print(status.text,status.in_reply_to_status_id)
             continue
         else:
+            print("除外tweet")
             print(status.text)
