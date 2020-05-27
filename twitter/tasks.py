@@ -59,7 +59,7 @@ def get_maiko_tweets():
         # RTとリプライを除外
         if (not status.retweeted) or (status.in_reply_to_status_id != None):
             print("除外tweet")
-            print(status.text)
+            print(status.text,status.retweeted,status.in_reply_to_status_id)
             continue
         else:
             print(status.text)
