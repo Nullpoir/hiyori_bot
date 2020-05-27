@@ -57,7 +57,7 @@ def get_maiko_tweets():
     #まいこ先生Tweet取得
     for status in api.user_timeline(id='uma401'):
         # RTとリプライでないものを抽出
-        if ((not status.retweeted) and ('RT @' not in status.text)) or (status.in_reply_to_status_id != None):
+        if ((not status.retweeted) and ('RT @' not in status.text)) or (status.in_reply_to_status_id == None):
             print(status.text,status.in_reply_to_status_id)
             continue
         else:
