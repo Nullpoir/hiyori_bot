@@ -59,4 +59,4 @@ def get_maiko_tweets():
         #見映えのため区切る
         print('-------------------------------------------')
         #内容表示
-        print(status.text)
+        print(status)
