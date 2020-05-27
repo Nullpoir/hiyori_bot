@@ -58,5 +58,9 @@ def get_maiko_tweets():
     for status in api.user_timeline(id='uma401'):
         #見映えのため区切る
         print('-------------------------------------------')
-        #内容表示
-        print(status)
+        # RTとリプライを除外
+        if not status.retweeted or in_reply_to_status_id != None:
+            continue
+        else:
+            print('-------------------------------------------')
+            print(status.text)
