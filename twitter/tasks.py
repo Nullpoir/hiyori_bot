@@ -67,7 +67,7 @@ def get_maiko_tweets():
     query = "from:" + id + " since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
 
     #Discord WebHook接続
-    discord = Discord(url="DISCORD_WEBHOOK_URL")
+    discord = Discord(url=DISCORD_WEBHOOK_URL)
     #まいこ先生Tweet取得
     for status in api.search(q=query):
         print(status.text)
