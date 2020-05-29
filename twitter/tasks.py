@@ -64,6 +64,7 @@ def get_maiko_tweets():
     id='initrd0324'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=2)
     query = "from:" + id + "since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
+    print(query,api.search(q=query))
 
     #まいこ先生Tweet取得
     for status in api.search(q=query):
