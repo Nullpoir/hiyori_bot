@@ -63,7 +63,7 @@ def get_maiko_tweets():
 
     #クエリ生成
     id='uma401'
-    since = datetime.datetime.utcnow() - datetime.timedelta(minutes=2)
+    since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
     query = "from:" + id + " since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
 
     #Discord WebHook接続
