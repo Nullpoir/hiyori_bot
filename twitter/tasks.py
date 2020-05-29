@@ -72,4 +72,4 @@ def get_maiko_tweets():
     for status in api.search(q=query):
         print(status.text)
         #Discordに投げる
-        discord.post(content="status.text")
+        discord.post(content=status.text)
