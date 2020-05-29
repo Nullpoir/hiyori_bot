@@ -4,6 +4,8 @@ from django.conf import settings
 from celery import shared_task
 import tweepy
 from .markov_chain.markov import Markov
+import datetime
+
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
@@ -42,7 +44,11 @@ def sheduled_tweet():
     tweet= tweet.strip('[BOS]').strip("\n")
 
     # ツイート送信
-    res = api.update_status(tweet)
+    try:
+        res = api.update_status(tweet)
+    except TweepError as e:
+        if e.get("message") == "Status is a duplicate.":
+            res = api.update_status("ま、また同じことを・・・")
     print(res)
 
 #まいこ先生tweet収集
@@ -54,10 +60,16 @@ def get_maiko_tweets():
     # コネクション用のインスタンス作成
     api = tweepy.API(auth)
 
+    #時刻取得
+    id='initrd0324'
+    since = datetime.datetime.utcnow() - datetime.timedelta(minutes=2)
+    query = "from:" + id + "since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
+
     #まいこ先生Tweet取得
-    for status in api.user_timeline(id='initrd0324'):
+    for status in api.search(q=query):
         # RTとリプライでないものを抽出
         if ((not status.retweeted) and ('RT @' not in status.text)) and (status.in_reply_to_status_id == None):
+            tweet_time = parser.parse(status.created_at).astimezone(timezone('Asia/Tokyo'))
             print(status.text,status.in_reply_to_status_id)
             continue
         else:
