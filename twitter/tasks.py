@@ -5,12 +5,13 @@ from celery import shared_task
 import tweepy
 from .markov_chain.markov import Markov
 import datetime
-
+from discordwebhook import Discord
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
 AK = settings.TWITTER_TOKEN
 AS = settings.TWITTER_TOKEN_SECRET
+DISCORD_WEBHOOK_URL = settings.DISCORD_WEBHOOK_URL
 
 #毎朝4時に実行させるタスク
 @shared_task
@@ -64,8 +65,11 @@ def get_maiko_tweets():
     id='initrd0324'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=2)
     query = "from:" + id + " since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
-    print(query,api.search(q=query))
 
+    #Discord WebHook接続
+    discord = Discord(url="DISCORD_WEBHOOK_URL")
     #まいこ先生Tweet取得
     for status in api.search(q=query):
-        print(status.text,status.in_reply_to_status_id)
+        print(status.text)
+        #Discordに投げる
+        discord.post(content="status.text")

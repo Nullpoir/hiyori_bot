@@ -30,6 +30,7 @@ TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 TWITTER_TOKEN = os.environ.get('TWITTER_TOKEN')
 TWITTER_TOKEN_SECRET = os.environ.get('TWITTER_TOKEN_SECRET')
 MY_ID = os.environ.get('MY_ID')
+DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
 
 DB_NAME = os.environ.get('DB_NAME')
 DB_USER = os.environ.get('DB_USER')
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_beat',
     'twitter.apps.TwitterConfig',
+    'discord.apps.DiscordConfig',
 ]
 
 MIDDLEWARE = [
