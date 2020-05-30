@@ -76,9 +76,11 @@ def get_maiko_tweets():
     discord = Discord(url=DISCORD_WEBHOOK_URL_MAIKO)
     #まいこ先生Tweet取得
     for status in api.search(q=query):
-        print(status.text)
-        #Discordに投げる
-        discord.post(content=status.text)
+        #文章生成
+        discord_post_text = get_tweet_source(status)
+        print(discord_post_text)
+        # Discordに投げる
+        discord.post(content=discord_post_text)
 
 #グッズ情報収集
 @shared_task
