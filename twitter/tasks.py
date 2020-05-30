@@ -11,7 +11,9 @@ CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
 AK = settings.TWITTER_TOKEN
 AS = settings.TWITTER_TOKEN_SECRET
-DISCORD_WEBHOOK_URL = settings.DISCORD_WEBHOOK_URL
+DISCORD_WEBHOOK_URL_MAIKO = settings.DISCORD_WEBHOOK_URL_MAIKO
+DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
+# DISCORD_WEBHOOK_URL_EVENTS = settings.DISCORD_WEBHOOK_URL_EVENT
 
 #毎朝4時に実行させるタスク
 @shared_task
@@ -68,6 +70,28 @@ def get_maiko_tweets():
 
     #Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL)
+    #まいこ先生Tweet取得
+    for status in api.search(q=query):
+        print(status.text)
+        #Discordに投げる
+        discord.post(content=status.text)
+
+#グッズ情報収集
+@shared_task
+def get_goodies_tweets():
+    # 認証
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AK, AS)
+    # コネクション用のインスタンス作成
+    api = tweepy.API(auth)
+
+    #クエリ生成
+    list ='list:1266373880949510144'
+    since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
+    query = list + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
+
+    #Discord WebHook接続
+    discord = Discord(url=DISCORD_WEBHOOK_URL_GOODIES)
     #まいこ先生Tweet取得
     for status in api.search(q=query):
         print(status.text)
