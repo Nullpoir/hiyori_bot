@@ -21,11 +21,13 @@ def get_tweet_source(status):
 # 毎朝4時に実行させるタスク
 @shared_task
 def morning_yokosuka_weather_report():
+    # ツイート生成
     tweet = GenWeatherTweet("Yokosuka")
 
     # 認証
     auth = tweepy.OAuthHandler(CK, CS)
     auth.set_access_token(AK, AS)
+
     # コネクション用のインスタンス作成
     api = tweepy.API(auth)
 
@@ -50,11 +52,14 @@ def sheduled_tweet():
     tweet= tweet.strip('[BOS]').strip("\n")
 
     # ツイート送信
-    try:
-        res = api.update_status(tweet)
-    except TweepError as e:
-        if e.get("message") == "Status is a duplicate.":
-            res = api.update_status("ま、また同じことを・・・")
+    is_end = False
+    while not is_end:
+        try:
+            res = api.update_status(tweet)
+            is_end = True
+        except TweepError as e:
+            if e.get("message") == "Status is a duplicate.":
+                res = api.update_status(tweet)
     print(res)
 
 # まいこ先生tweet収集
