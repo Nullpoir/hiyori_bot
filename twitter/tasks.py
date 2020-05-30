@@ -98,7 +98,4 @@ def get_goodies_tweets():
         # Discordに投げる
         discord.post(content=status.text + "\n" + status.source)
         # RTする
-        try:
-            api.retweet(status.id)
-        except:
-            print("RT error")
+        api.retweet(status.id)
