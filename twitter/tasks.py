@@ -69,7 +69,7 @@ def get_maiko_tweets():
     query = "from:" + id + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
 
     #Discord WebHook接続
-    discord = Discord(url=DISCORD_WEBHOOK_URL)
+    discord = Discord(url=DISCORD_WEBHOOK_URL_MAIKO)
     #まいこ先生Tweet取得
     for status in api.search(q=query):
         print(status.text)
@@ -88,7 +88,7 @@ def get_goodies_tweets():
     #クエリ生成
     list ='list:1266373880949510144'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
-    query = list + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
+    query = "\"スローループ\" "+ list + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
 
     #Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL_GOODIES)
