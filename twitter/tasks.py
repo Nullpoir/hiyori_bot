@@ -16,6 +16,9 @@ DISCORD_WEBHOOK_URL_MAIKO = settings.DISCORD_WEBHOOK_URL_MAIKO
 DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
 # DISCORD_WEBHOOK_URL_EVENTS = settings.DISCORD_WEBHOOK_URL_EVENT
 
+def get_tweet_source(status):
+    return TWITTER_BASE_URL + status.screen_name + "/status/" + status.id
+
 # 毎朝4時に実行させるタスク
 @shared_task
 def morning_yokosuka_weather_report():
@@ -96,7 +99,7 @@ def get_goodies_tweets():
     # まいこ先生Tweet取得
     for status in api.search(q=query):
         #文章生成
-        discord_post_text = TWITTER_BASE_URL + status.screen_name + "/status/" + status.id
+        discord_post_text = get_tweet_source(status)
         print(discord_post_text)
         # Discordに投げる
         discord.post(content=discord_post_text)
