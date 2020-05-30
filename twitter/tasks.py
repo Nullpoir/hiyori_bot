@@ -17,7 +17,7 @@ DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
 # DISCORD_WEBHOOK_URL_EVENTS = settings.DISCORD_WEBHOOK_URL_EVENT
 
 def get_tweet_source(status):
-    return TWITTER_BASE_URL + status.user.screen_name + "/status/" + status.id
+    return TWITTER_BASE_URL + status.user.screen_name + "/status/" + status.id_str
 
 # 毎朝4時に実行させるタスク
 @shared_task
