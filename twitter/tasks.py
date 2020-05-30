@@ -7,7 +7,7 @@ from .markov_chain.markov import Markov
 import datetime
 from discordwebhook import Discord
 
-TWITTER_BASE_URL = "https://twiiter.com/"
+TWITTER_BASE_URL = "https://twitter.com/"
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
 AK = settings.TWITTER_TOKEN
