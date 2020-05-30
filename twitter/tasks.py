@@ -15,7 +15,7 @@ DISCORD_WEBHOOK_URL_MAIKO = settings.DISCORD_WEBHOOK_URL_MAIKO
 DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
 # DISCORD_WEBHOOK_URL_EVENTS = settings.DISCORD_WEBHOOK_URL_EVENT
 
-#毎朝4時に実行させるタスク
+# 毎朝4時に実行させるタスク
 @shared_task
 def morning_yokosuka_weather_report():
     tweet = GenWeatherTweet("Yokosuka")
@@ -32,7 +32,7 @@ def morning_yokosuka_weather_report():
 
     return 0
 
-#定時ツイートタスク
+# 定時ツイートタスク
 @shared_task
 def sheduled_tweet():
     # 認証
@@ -54,7 +54,7 @@ def sheduled_tweet():
             res = api.update_status("ま、また同じことを・・・")
     print(res)
 
-#まいこ先生tweet収集
+# まいこ先生tweet収集
 @shared_task
 def get_maiko_tweets():
     # 認証
@@ -90,10 +90,15 @@ def get_goodies_tweets():
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
     query = "\"スローループ\" "+ list + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
 
-    #Discord WebHook接続
+    # Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL_GOODIES)
-    #まいこ先生Tweet取得
+    # まいこ先生Tweet取得
     for status in api.search(q=query):
-        print(status.text)
-        #Discordに投げる
-        discord.post(content=status.text)
+        print(status.text + "\n" + status.source)
+        # Discordに投げる
+        discord.post(content=status.text + "\n" + status.source)
+        # RTする
+        try:
+            api.retweets(status.id)
+        except:
+            print("RT error")
