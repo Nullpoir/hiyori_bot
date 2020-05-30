@@ -99,6 +99,6 @@ def get_goodies_tweets():
         discord.post(content=status.text + "\n" + status.source)
         # RTする
         try:
-            api.retweets(status.id)
+            api.retweet(status.id)
         except:
             print("RT error")
