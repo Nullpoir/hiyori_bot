@@ -7,6 +7,7 @@ from .markov_chain.markov import Markov
 import datetime
 from discordwebhook import Discord
 
+TWITTER_BASE_URL = "https://twiiter.com/"
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
 AK = settings.TWITTER_TOKEN
@@ -94,8 +95,10 @@ def get_goodies_tweets():
     discord = Discord(url=DISCORD_WEBHOOK_URL_GOODIES)
     # まいこ先生Tweet取得
     for status in api.search(q=query):
-        print(status.text + "\n" + status.source)
+        #文章生成
+        discord_post_text = TWITTER_BASE_URL + status.screen_name + "/status/" + status.id
+        print(discord_post_text)
         # Discordに投げる
-        discord.post(content=status.text + "\n" + status.source)
+        discord.post(content=discord_post_text)
         # RTする
         api.retweet(status.id)
