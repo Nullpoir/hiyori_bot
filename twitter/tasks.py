@@ -6,6 +6,8 @@ import tweepy
 from .markov_chain.markov import Markov
 import datetime
 from discordwebhook import Discord
+from djcelery.models import PeriodicTask
+
 
 TWITTER_BASE_URL = "https://twitter.com/"
 CK = settings.TWITTER_CONSUMER_KEY
@@ -75,6 +77,9 @@ def get_maiko_tweets():
     id='uma401'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
     query = "from:" + id + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
+
+    last_run = PeriodicTask.objects.only('last_run_at').get(task='まいこ先生ツイート収集').last_run_at
+    print(last_run)
 
     #Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL_MAIKO)
