@@ -75,18 +75,24 @@ def get_maiko_tweets():
     #クエリ生成
     id='uma401'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
-    query = "from:" + id + " -filter:retweets -filter:replies since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
+    query = "from:" + id + " -filter:retweets since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
 
 
     #Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL_MAIKO)
     #まいこ先生Tweet取得
     for status in api.search(q=query):
-        #文章生成
-        discord_post_text = get_tweet_source(status)
-        print(discord_post_text)
-        # Discordに投げる
-        discord.post(content=discord_post_text)
+        #自己リプとリプじゃ無いツイートは許可
+        if (('@' + id) in status.text) or ( not('@' in status.text)):
+            #文章生成
+            discord_post_text = get_tweet_source(status)
+            print(discord_post_text)
+            # Discordに投げる
+            discord.post(content=discord_post_text)
+        else:
+            #何もしない
+            pass
+
 
 #グッズ情報収集
 @shared_task
