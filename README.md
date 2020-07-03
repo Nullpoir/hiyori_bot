@@ -37,4 +37,6 @@ Python3.6.8で動作確認済み
 ## 開発について
 developからcloneして、featureブランチを切ってなんかそれっぽいものができたらpull request出してください。masterについてはpushすると本番環境にも上がるのでpush厳禁
 
+なにかあったらissueでもtwitterでも構わないので、ご連絡ください。
+
 
