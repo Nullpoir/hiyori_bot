@@ -9,7 +9,7 @@ AK = settings.TWITTER_TOKEN
 AS = settings.TWITTER_TOKEN_SECRET
 MY_ID = settings.MY_ID
 
-class User(models.Medel):
+class User(models.Model):
     # 共通
     created_at = models.DateTimeField(
         verbose_name='作成日',
