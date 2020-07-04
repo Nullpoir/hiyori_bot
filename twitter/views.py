@@ -102,8 +102,10 @@ class TwitterEndPointView(View):
                 user.save()
             except User.DoesNotExist:
                 # user登録
-                User.objects.create(twitter_id=str(id))
+                user = User(twitter_id=str(id))
+                user.save()
             # フォロー
+            print(user.twitter_screen_name())
             api.create_friendship(id)
 
         elif req.get('unfollow_events') != None:
