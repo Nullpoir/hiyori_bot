@@ -123,7 +123,7 @@ class TwitterEndPointView(View):
                         if user.is_daily:
                             reply = "わかりました。きらファンデイリーの通知をやめますね..."
                         else:
-                            reply = "わかりました。きらファンデイリーの通知を毎日23時にします。"
+                            reply = "わかりました。きらファンデイリーの通知を毎日23時半にします。"
 
                         user.is_daily = not user.is_daily
                         user.save()
