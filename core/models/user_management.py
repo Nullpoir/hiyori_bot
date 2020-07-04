@@ -17,7 +17,8 @@ class User(models.Model):
     )
     update_at = models.DateTimeField(
         verbose_name='更新日',
-        blank=True
+        blank=True,
+        null=True
     )
     is_active = models.BooleanField(
         verbose_name='有効',
