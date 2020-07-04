@@ -92,31 +92,30 @@ class TwitterEndPointView(View):
             )
         # フォローされたときの処理
         elif req.get('follow_events') != None:
-            id = req['follow_events'][0]['source']['id']
-            if id == MY_ID:
-                return JsonResponse({"State":"OK"})
-            try:
-                # user存在確認
+            if(req['follow_events'][0]['type'] == "follow"):
+                id = req['follow_events'][0]['source']['id']
+                if id == MY_ID:
+                    return JsonResponse({"State":"OK"})
+                try:
+                    # user存在確認
+                    user = User.objects.get(twitter_id=str(id))
+                    user.is_active = True
+                    user.save()
+                except :
+                    # user登録
+                    user = User(twitter_id=str(id))
+                    user.save()
+                # フォロー
+                api.create_friendship(id)
+            elif (req['follow_events'][0]['type'] == "unfollow"):
+                # ID取得
+                id = req['unfollow_events'][0]['source']['id']
+                # 論理削除
                 user = User.objects.get(twitter_id=str(id))
-                user.is_active = True
+                user.is_active = False
                 user.save()
-            except :
-                # user登録
-                user = User(twitter_id=str(id))
-                user.save()
-            # フォロー
-            print(user.twitter_screen_name())
-            api.create_friendship(id)
-
-        elif req.get('unfollow_events') != None:
-            # ID取得
-            id = req['unfollow_events'][0]['source']['id']
-            # 論理削除
-            user = User.objects.get(twitter_id=str(id))
-            user.is_active = False
-            user.save()
-            # フォロー解除
-            api.destroy_friendship(id)
+                # フォロー解除
+                api.destroy_friendship(id)
 
         return JsonResponse({"State":"OK"})
 
