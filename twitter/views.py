@@ -128,7 +128,7 @@ class TwitterEndPointView(View):
                         user.is_daily = not user.is_daily
                     user.save()
                     api.send_direct_message(sender_id,reply)
-                    else cmd == None:
+                    elif cmd == None:
                         api.send_direct_message(sender_id,"すみませんよくわかりませんでした。")
 
 
