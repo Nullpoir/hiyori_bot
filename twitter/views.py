@@ -114,7 +114,7 @@ class TwitterEndPointView(View):
             message =  req['direct_message_events'][0]['message_create']['message_data']['text']
             if sender_id == MY_ID:
                 return JsonResponse({"State":"OK"})
-            if utils.is_twitter_user_exists(id):
+            if utils.is_twitter_user_exists(sender_id):
                 # DM送信
                 user = User.objects.get(twitter_id=str(sender_id))
                 if user.is_active:
