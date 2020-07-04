@@ -96,13 +96,11 @@ class TwitterEndPointView(View):
                 id = req['follow_events'][0]['source']['id']
                 if id == MY_ID:
                     return JsonResponse({"State":"OK"})
-                print(utils.is_twitter_user_exists(id))
-                try:
-                    # user存在確認
+                if utils.is_twitter_user_exists(id):
                     user = User.objects.get(twitter_id=str(id))
                     user.is_active = True
                     user.save()
-                except :
+                else:
                     # user登録
                     user = User(twitter_id=str(id))
                     user.save()
@@ -116,8 +114,6 @@ class TwitterEndPointView(View):
             message =  req['direct_message_events'][0]['message_create']['message_data']['text']
             if sender_id == MY_ID:
                 return JsonResponse({"State":"OK"})
-            print(user_id,sender_id)
-            print(utils.is_twitter_user_exists(sender_id))
             # DM送信
             api.send_direct_message(sender_id,message)
 
