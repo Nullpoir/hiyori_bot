@@ -137,8 +137,8 @@ def unfollow_task():
 
     for i in friends:
         if i not in followers:
+            api.destroy_friendship(i)
             user = User.objects.get(twitter_id=str(i))
             user.is_active = False
             user.save()
-            api.destroy_friendship(i)
 
