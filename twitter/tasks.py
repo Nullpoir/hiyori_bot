@@ -142,3 +142,18 @@ def unfollow_task():
             user.is_active = False
             user.save()
 
+#自動フォロー解除
+@shared_task
+def kirafan_daily_notification():
+    # 認証
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AK, AS)
+    # コネクション用のインスタンス作成
+    api = tweepy.API(auth)
+
+    for i in User.objects.all().filter(is_active=True,is_daily=True)[:80]:
+        screen_name = '@' + i.twitter_screen_name()
+        tweet = screen_name + '\n' + 'あ、あの！きらファンデイリー遂行確認のお時間です・・・'
+        res = api.update_status(tweet)
+
+    
