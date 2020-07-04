@@ -13,6 +13,7 @@ from . import utils
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
+from mysite.models import User
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
@@ -95,8 +96,26 @@ class TwitterEndPointView(View):
             id = req['follow_events'][0]['source']['id']
             if id == MY_ID:
                 return JsonResponse({"State":"OK"})
-
+            try:
+                # user存在確認
+                user = User.objects.get(id=str(id))
+                user.is_active = True
+                user.save()
+            except User.DoesNotExist:
+                # user登録
+                User.objects.create(twitter_id=str(id))
+            # フォロー
             api.create_friendship(id)
+
+        elif req.get('unfollow_events') != None:
+            # ID取得
+            id = req['unfollow_events'][0]['source']['id']
+            # 論理削除
+            user = User.objects.get(id=str(id))
+            user.is_active = False
+            user.save()
+            # フォロー解除
+            api.destroy_friendship(id)
 
         return JsonResponse({"State":"OK"})
 
