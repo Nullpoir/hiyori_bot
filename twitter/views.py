@@ -108,6 +108,22 @@ class TwitterEndPointView(View):
                 # フォロー
                 api.create_friendship(id)
 
+        elif req.get('direct_message_events') != None:
+            print(req['direct_message_events'][0]['message_create'])
+            dm_body = {
+                        "event": {
+                            "type": "message_create",
+                            "message_create": {
+                                "target": {
+                                    "recipient_id": ID
+                                },
+                                "message_data": {
+                                    "text": 'あああ'
+                                }
+                            }
+                        }
+                    }
+
         return JsonResponse({"State":"OK"})
 
     @method_decorator(csrf_exempt)
