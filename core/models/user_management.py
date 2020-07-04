@@ -27,7 +27,7 @@ class User(models.Model):
     )
     # twitter関連
     twitter_id = models.CharField(
-        verbose_name="Twitterスクリーンネーム",
+        verbose_name="twitter内部ID",
         max_length=22,
         unique=True
     )

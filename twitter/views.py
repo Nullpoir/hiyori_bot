@@ -97,10 +97,10 @@ class TwitterEndPointView(View):
                 return JsonResponse({"State":"OK"})
             try:
                 # user存在確認
-                user = User.objects.get(id=str(id))
+                user = User.objects.get(twitter_id=str(id))
                 user.is_active = True
                 user.save()
-            except User.DoesNotExist:
+            except :
                 # user登録
                 user = User(twitter_id=str(id))
                 user.save()
@@ -112,7 +112,7 @@ class TwitterEndPointView(View):
             # ID取得
             id = req['unfollow_events'][0]['source']['id']
             # 論理削除
-            user = User.objects.get(id=str(id))
+            user = User.objects.get(twitter_id=str(id))
             user.is_active = False
             user.save()
             # フォロー解除
