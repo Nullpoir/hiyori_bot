@@ -154,6 +154,9 @@ def kirafan_daily_notification():
     for i in User.objects.all().filter(is_active=True,is_daily=True)[:80]:
         screen_name = '@' + i.twitter_screen_name()
         tweet = screen_name + '\n' + 'あ、あの！きらファンデイリー遂行確認のお時間です・・・'
-        res = api.update_status(tweet)
+        try:
+            res = api.update_status(tweet)
+        except:
+            pass
 
     

@@ -37,8 +37,8 @@ class User(models.Model):
     )
 
     def save(self):
-        # # 更新がある度に更新日を変更
-        # self.update_at = datetime.now
+        # 更新がある度に更新日を変更
+        self.update_at = datetime.datetime.now()
         super(User, self).save()
     def twitter_screen_name(self):
          # 認証
