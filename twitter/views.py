@@ -126,8 +126,8 @@ class TwitterEndPointView(View):
                             reply = "わかりました。きらファンデイリーの通知を毎日23時にします。"
 
                         user.is_daily = not user.is_daily
-                    user.save()
-                    api.send_direct_message(sender_id,reply)
+                        user.save()
+                        api.send_direct_message(sender_id,reply)
                     elif cmd == None:
                         api.send_direct_message(sender_id,"すみませんよくわかりませんでした。")
 
