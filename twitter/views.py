@@ -116,7 +116,7 @@ class TwitterEndPointView(View):
                 return JsonResponse({"State":"OK"})
             if utils.is_twitter_user_exists(id):
                 # DM送信
-                user = User.objects.get(twitter_id=str(id))
+                user = User.objects.get(twitter_id=str(sender_id))
                 if user.is_active:
                     api.send_direct_message(sender_id,message)
 
