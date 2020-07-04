@@ -125,6 +125,8 @@ class TwitterEndPointView(View):
                             }
                         }
                     }
+            # DM送信
+            api.send_direct_message_new(event)
 
         return JsonResponse({"State":"OK"})
 
