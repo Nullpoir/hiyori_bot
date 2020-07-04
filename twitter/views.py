@@ -13,7 +13,7 @@ from . import utils
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
-from mysite.models import User
+from core.models import User
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
