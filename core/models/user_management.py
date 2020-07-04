@@ -44,7 +44,7 @@ class User(models.Model):
         api = tweepy.API(auth)
         # データ取得
         user = api.get_user(self.twitter_id)
-        print(user)
+        print(user.json)
         return user['screen_name']
 
     def twitter_name(self):
