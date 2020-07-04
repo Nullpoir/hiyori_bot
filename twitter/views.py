@@ -96,7 +96,7 @@ class TwitterEndPointView(View):
                 id = req['follow_events'][0]['source']['id']
                 if id == MY_ID:
                     return JsonResponse({"State":"OK"})
-                print(utils.is_twitter_user_exists(id)))
+                print(utils.is_twitter_user_exists(id))
                 try:
                     # user存在確認
                     user = User.objects.get(twitter_id=str(id))
