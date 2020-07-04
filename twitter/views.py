@@ -116,7 +116,7 @@ class TwitterEndPointView(View):
             if sender_id == MY_ID:
                 return JsonResponse({"State":"OK"})
             print(user_id,sender_id)
-            print(utils.is_twitter_user_exists(sender_id))
+            print(utils.is_twitter_user_exists(int(sender_id)))
             # DM送信
             api.send_direct_message(sender_id,message)
 
