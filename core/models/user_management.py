@@ -1,4 +1,5 @@
 from django.db import models
+import tweepy
 from datetime import datetime
 from django.utils import timezone
 from django.conf import settings
