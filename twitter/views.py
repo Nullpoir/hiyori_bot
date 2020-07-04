@@ -67,7 +67,7 @@ class TwitterEndPointView(View):
         # リプライが来たときの処理
         if req.get('tweet_create_events') != None:
             status = req['tweet_create_events'][0]
-
+            print(status['user']['id'])
             # 自分へのリプじゃないのと自己リプを弾く
             if (status['in_reply_to_user_id_str'] !=  MY_ID) or (status['user']['id'] == MY_ID):
                 return JsonResponse({"State":"OK"})
@@ -92,6 +92,7 @@ class TwitterEndPointView(View):
             )
         # フォローされたときの処理
         elif req.get('follow_events') != None:
+            print(req['follow_events'][0]['source']['id'])
             id = req['follow_events'][0]['source']['id']
             if id == MY_ID:
                 return JsonResponse({"State":"OK"})
