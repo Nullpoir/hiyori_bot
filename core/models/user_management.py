@@ -44,8 +44,7 @@ class User(models.Model):
         api = tweepy.API(auth)
         # データ取得
         user = api.get_user(self.twitter_id)
-        print(user.json)
-        return user['screen_name']
+        return user._json['screen_name']
 
     def twitter_name(self):
          # 認証
@@ -56,4 +55,4 @@ class User(models.Model):
         # データ取得
         user = api.get_user(self.twitter_id)
 
-        return user['name']
+        return user._json['screen_name']
