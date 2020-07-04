@@ -64,7 +64,7 @@ class TwitterEndPointView(View):
         auth.set_access_token(AK, AS)
         # コネクション用のインスタンス作成
         api = tweepy.API(auth)
-        print(req.get)
+        print(req)
         # リプライが来たときの処理
         if req.get('tweet_create_events') != None:
             status = req['tweet_create_events'][0]
