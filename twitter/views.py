@@ -112,21 +112,9 @@ class TwitterEndPointView(View):
             print(req['direct_message_events'][0]['message_create'])
             sender_id = req['direct_message_events'][0]['message_create']['sender_id']
             message =  req['direct_message_events'][0]['message_create']['message_data']['text']
-            dm_body = {
-                        "event": {
-                            "type": "message_create",
-                            "message_create": {
-                                "target": {
-                                    "recipient_id": sender_id
-                                },
-                                "message_data": {
-                                    "text": message
-                                }
-                            }
-                        }
-                    }
+            
             # DM送信
-            api.send_direct_message_new(dm_body)
+            api.send_direct_message(sender_id,message)
 
         return JsonResponse({"State":"OK"})
 
