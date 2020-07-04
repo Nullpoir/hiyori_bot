@@ -31,6 +31,10 @@ class User(models.Model):
         max_length=22,
         unique=True
     )
+    is_daily = models.BooleanField(
+        verbose_name='デイリー通知',
+        default=False
+    )
 
     def save(self):
         # 更新がある度に更新日を変更

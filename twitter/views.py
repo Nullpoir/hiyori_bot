@@ -118,7 +118,16 @@ class TwitterEndPointView(View):
                 # DM送信
                 user = User.objects.get(twitter_id=str(sender_id))
                 if user.is_active:
-                    api.send_direct_message(sender_id,message)
+                    cmd = utils.classify_direct_message(message)
+                    if cmd == 'CMD:DAILY':
+                        if user.is_daily:
+                            reply = "わかりました。きらファンデイリーの通知をやめますね..."
+                        else:
+                            reply = "わかりました。きらファンデイリーの通知を毎日23時にします。"
+
+                        user.is_daily = not user.is_daily
+
+                    api.send_direct_message(sender_id,reply)
 
 
         return JsonResponse({"State":"OK"})
