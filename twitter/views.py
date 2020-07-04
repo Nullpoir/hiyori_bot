@@ -112,7 +112,7 @@ class TwitterEndPointView(View):
             print(req['direct_message_events'][0]['message_create'])
             sender_id = req['direct_message_events'][0]['message_create']['sender_id']
             message =  req['direct_message_events'][0]['message_create']['message_data']['text']
-            print(is_twitter_user_exists(sender_id))
+            print(utils.is_twitter_user_exists(sender_id))
             # DM送信
             api.send_direct_message(sender_id,message)
 
