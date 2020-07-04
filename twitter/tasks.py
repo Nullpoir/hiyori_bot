@@ -6,15 +6,17 @@ import tweepy
 from .markov_chain.markov import Markov
 import datetime
 from discordwebhook import Discord
-
+from core.models import User
 
 TWITTER_BASE_URL = "https://twitter.com/"
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
 AK = settings.TWITTER_TOKEN
 AS = settings.TWITTER_TOKEN_SECRET
+MY_ID = settings.MY_ID
 DISCORD_WEBHOOK_URL_MAIKO = settings.DISCORD_WEBHOOK_URL_MAIKO
 DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
+SCREEN_NAME = 'mHiyori0324'
 
 def get_tweet_source(status):
     return TWITTER_BASE_URL + status.user.screen_name + "/status/" + status.id_str
@@ -120,3 +122,38 @@ def get_goodies_tweets():
         discord.post(content=discord_post_text)
         # RTする
         api.retweet(status.id)
+
+#自動フォロー解除
+@shared_task
+def unfollow_task():
+    # 認証
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AK, AS)
+    # コネクション用のインスタンス作成
+    api = tweepy.API(auth)
+
+    followers = api.followers_ids(SCREEN_NAME)
+    friends = api.friends_ids(SCREEN_NAME)
+
+    for i in friends:
+        if i not in followers:
+            api.destroy_friendship(i)
+            user = User.objects.get(twitter_id=str(i))
+            user.is_active = False
+            user.save()
+
+#自動フォロー解除
+@shared_task
+def kirafan_daily_notification():
+    # 認証
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AK, AS)
+    # コネクション用のインスタンス作成
+    api = tweepy.API(auth)
+
+    for i in User.objects.all().filter(is_active=True,is_daily=True)[:80]:
+        screen_name = '@' + i.twitter_screen_name()
+        tweet = screen_name + '\n' + 'あ、あの！きらファンデイリー遂行確認のお時間です・・・'
+        res = api.update_status(tweet)
+
+    

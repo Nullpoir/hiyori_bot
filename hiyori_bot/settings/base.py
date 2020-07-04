@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'twitter.apps.TwitterConfig',
     'discord.apps.DiscordConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [

@@ -5,3 +5,5 @@ auth/
 twitter/markov_chain/source.txt
 twitter/markov_chain/pre_source.txt
 node_modules/
+*.pyc
+__pycache__/

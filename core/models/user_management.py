@@ -1,4 +1,5 @@
 from django.db import models
+import tweepy
 from datetime import datetime
 from django.utils import timezone
 from django.conf import settings
@@ -9,7 +10,7 @@ AK = settings.TWITTER_TOKEN
 AS = settings.TWITTER_TOKEN_SECRET
 MY_ID = settings.MY_ID
 
-class User(models.Medel):
+class User(models.Model):
     # 共通
     created_at = models.DateTimeField(
         verbose_name='作成日',
@@ -17,23 +18,28 @@ class User(models.Medel):
     )
     update_at = models.DateTimeField(
         verbose_name='更新日',
-        blank=True
+        blank=True,
+        null=True
     )
-    is_active = models.BooleanFeild(
+    is_active = models.BooleanField(
         verbose_name='有効',
         default=True
     )
     # twitter関連
     twitter_id = models.CharField(
-        vervose_name="Twitterスクリーンネーム",
+        verbose_name="twitter内部ID",
         max_length=22,
         unique=True
+    )
+    is_daily = models.BooleanField(
+        verbose_name='デイリー通知',
+        default=False
     )
 
     def save(self):
         # 更新がある度に更新日を変更
         update_at = datetime.now
-        super(Article, self).save()
+        super(User, self).save()
     def twitter_screen_name(self):
          # 認証
         auth = tweepy.OAuthHandler(CK, CS)
@@ -42,8 +48,7 @@ class User(models.Medel):
         api = tweepy.API(auth)
         # データ取得
         user = api.get_user(self.twitter_id)
-
-        return user['screen_name']
+        return user._json['screen_name']
 
     def twitter_name(self):
          # 認証
@@ -54,4 +59,4 @@ class User(models.Medel):
         # データ取得
         user = api.get_user(self.twitter_id)
 
-        return user['name']
+        return user._json['screen_name']

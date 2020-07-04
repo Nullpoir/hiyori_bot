@@ -13,7 +13,7 @@ from . import utils
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
-from mysite.models import User
+from core.models import User
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
@@ -64,7 +64,7 @@ class TwitterEndPointView(View):
         auth.set_access_token(AK, AS)
         # コネクション用のインスタンス作成
         api = tweepy.API(auth)
-
+        # print(req)
         # リプライが来たときの処理
         if req.get('tweet_create_events') != None:
             status = req['tweet_create_events'][0]
@@ -92,29 +92,45 @@ class TwitterEndPointView(View):
             )
         # フォローされたときの処理
         elif req.get('follow_events') != None:
-            id = req['follow_events'][0]['source']['id']
-            if id == MY_ID:
-                return JsonResponse({"State":"OK"})
-            try:
-                # user存在確認
-                user = User.objects.get(id=str(id))
-                user.is_active = True
-                user.save()
-            except User.DoesNotExist:
-                # user登録
-                User.objects.create(twitter_id=str(id))
-            # フォロー
-            api.create_friendship(id)
+            if(req['follow_events'][0]['type'] == "follow"):
+                id = req['follow_events'][0]['source']['id']
+                if id == MY_ID:
+                    return JsonResponse({"State":"OK"})
+                if utils.is_twitter_user_exists(id):
+                    user = User.objects.get(twitter_id=str(id))
+                    user.is_active = True
+                    user.save()
+                else:
+                    # user登録
+                    user = User(twitter_id=str(id))
+                    user.save()
+                # フォロー
+                api.create_friendship(id)
 
-        elif req.get('unfollow_events') != None:
-            # ID取得
-            id = req['unfollow_events'][0]['source']['id']
-            # 論理削除
-            user = User.objects.get(id=str(id))
-            user.is_active = False
-            user.save()
-            # フォロー解除
-            api.destroy_friendship(id)
+        elif req.get('direct_message_events') != None:
+            
+            sender_id = req['direct_message_events'][0]['message_create']['sender_id']
+            user_id = req['direct_message_events'][0]['message_create']['target']['recipient_id']
+            message =  req['direct_message_events'][0]['message_create']['message_data']['text']
+            if sender_id == MY_ID:
+                return JsonResponse({"State":"OK"})
+            if utils.is_twitter_user_exists(sender_id):
+                # DM送信
+                user = User.objects.get(twitter_id=str(sender_id))
+                if user.is_active:
+                    cmd = utils.classify_direct_message(message)
+                    if cmd == 'CMD:DAILY':
+                        if user.is_daily:
+                            reply = "わかりました。きらファンデイリーの通知をやめますね..."
+                        else:
+                            reply = "わかりました。きらファンデイリーの通知を毎日23時にします。"
+
+                        user.is_daily = not user.is_daily
+                        user.save()
+                        api.send_direct_message(sender_id,reply)
+                    elif cmd == None:
+                        api.send_direct_message(sender_id,"すみませんよくわかりませんでした。")
+
 
         return JsonResponse({"State":"OK"})
 
