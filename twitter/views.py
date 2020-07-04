@@ -68,7 +68,6 @@ class TwitterEndPointView(View):
         # リプライが来たときの処理
         if req.get('tweet_create_events') != None:
             status = req['tweet_create_events'][0]
-
             # 自分へのリプじゃないのと自己リプを弾く
             if (status['in_reply_to_user_id_str'] !=  MY_ID) or (status['user']['id'] == MY_ID):
                 return JsonResponse({"State":"OK"})
