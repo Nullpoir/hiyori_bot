@@ -94,8 +94,6 @@ class TwitterEndPointView(View):
         elif req.get('follow_events') != None:
             if(req['follow_events'][0]['type'] == "follow"):
                 id = req['follow_events'][0]['source']['id']
-                if id == MY_ID:
-                    return JsonResponse({"State":"OK"})
                 try:
                     # user存在確認
                     user = User.objects.get(twitter_id=str(id))
@@ -109,7 +107,7 @@ class TwitterEndPointView(View):
                 api.create_friendship(id)
             elif (req['follow_events'][0]['type'] == "unfollow"):
                 # ID取得
-                id = req['unfollow_events'][0]['source']['id']
+                id = req['follow_events'][0]['source']['id']
                 # 論理削除
                 user = User.objects.get(twitter_id=str(id))
                 user.is_active = False
