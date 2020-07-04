@@ -109,10 +109,11 @@ class TwitterEndPointView(View):
                 api.create_friendship(id)
 
         elif req.get('direct_message_events') != None:
-            print(req['direct_message_events'][0]['message_create'])
+            
             sender_id = req['direct_message_events'][0]['message_create']['sender_id']
             user_id = req['direct_message_events'][0]['message_create']['target']['recipient_id']
             message =  req['direct_message_events'][0]['message_create']['message_data']['text']
+            print(user_id,sender_id)
             print(utils.is_twitter_user_exists(user_id))
             # DM送信
             api.send_direct_message(sender_id,message)
