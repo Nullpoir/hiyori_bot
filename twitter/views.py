@@ -110,15 +110,17 @@ class TwitterEndPointView(View):
 
         elif req.get('direct_message_events') != None:
             print(req['direct_message_events'][0]['message_create'])
+            sender_id = req['direct_message_events'][0]['message_create']['sender_id']
+            message =  req['direct_message_events'][0]['message_create']['message_data']['text']
             dm_body = {
                         "event": {
                             "type": "message_create",
                             "message_create": {
                                 "target": {
-                                    "recipient_id": ID
+                                    "recipient_id": sender_id
                                 },
                                 "message_data": {
-                                    "text": 'あああ'
+                                    "text": message
                                 }
                             }
                         }
