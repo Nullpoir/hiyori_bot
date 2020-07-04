@@ -19,7 +19,7 @@ class User(models.Model):
         verbose_name='更新日',
         blank=True
     )
-    is_active = models.BooleanFeild(
+    is_active = models.BooleanField(
         verbose_name='有効',
         default=True
     )
