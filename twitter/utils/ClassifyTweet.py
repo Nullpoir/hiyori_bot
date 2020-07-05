@@ -6,7 +6,7 @@ import random
 def ClassifyTweet(text):
     #テキスト整形
     text = TextSanitize(text)
-    print("sanitized-text:",text)
+    # print("sanitized-text:",text)
     talksets = TalkSet.objects.all()
     for t in talksets:
         if text == t.trigger:
