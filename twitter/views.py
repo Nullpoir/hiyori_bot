@@ -88,6 +88,7 @@ class TwitterEndPointView(View):
             elif state == "CMD:weather":
                 tweet = utils.GenWeatherTweet("Yokosuka")
             else:
+                print("fire")
                 pk = utils.is_answer_tweet(reply_from_text)
                 print("pk is ",pk)
                 if pk > -1:
@@ -96,6 +97,7 @@ class TwitterEndPointView(View):
                     else:
                         tweet = "問題" + str(pk) + "不正解です・・・"
                 else:
+                    print("fire2")
                     tweet = state
 
             # リプライ送信
