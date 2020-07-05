@@ -2,6 +2,7 @@ from django.test import TestCase
 from twitter.utils import *
 from . import datasets
 from twitter.models import TalkSet
+from core.models import Quiz
 # Create your tests here.
 
 class test_utils(TestCase):
@@ -32,3 +33,15 @@ class test_utils(TestCase):
             reply="あはははh,おほほほh,fjnqwiofn,fwefnioewfnoiw,fwfgiuweb"
         )
         print(ClassifyTweet(trigger))
+    def test_is_answer_tweet(self):
+        for q,a in zip(datasets.CLASSIFICATION_IS_ANS,datasets.CLASSIFICATION_IS_ANS_ANSWER):
+            pk = is_answer_tweet(q)
+            self.assertEqual(pk,a)
+
+    def test_is_corrent_answer(self):
+        Quiz.objects.create(
+            question="おこここここここ",
+            answers="あはははh,おほほほh,fjnqwiofn,fwefnioewfnoiw,fwfgiuweb"
+        )
+        for a,e in zip(datasets.QUIZ_ANSWERS,datasets.QUIZ_ANSWERS_EXPECTED):
+            self.assertEqual(is_correct_answer(1,a),e)

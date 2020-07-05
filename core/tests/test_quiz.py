@@ -19,7 +19,7 @@ class test_quiz(TestCase):
         random_list = []
         for i in range(count):
             random_list.append(i)
-        
+
         random.shuffle(random_list)
 
         for i in random_list:
@@ -29,6 +29,3 @@ class test_quiz(TestCase):
                 break
             except:
                 continue
-
-        
-        
