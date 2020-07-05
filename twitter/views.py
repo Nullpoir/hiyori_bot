@@ -73,13 +73,12 @@ class TwitterEndPointView(View):
                 return JsonResponse({"State":"OK"})
 
             print(status['text'])
-            print("reply_to:",status['in_reply_to_status_id'])
             try:
                 reply_from_text = api.get_status(status['in_reply_to_status_id']).text
             except:
                 reply_from_text = None
-            print("reply_text:",reply_from_text)
             state = utils.ClassifyTweet(status['text'])
+
             if state == "CMD:markov":
                 # とりあえずマルコフで生成
                 markov = Markov()
@@ -88,8 +87,8 @@ class TwitterEndPointView(View):
             elif state == "CMD:weather":
                 tweet = utils.GenWeatherTweet("Yokosuka")
             else:
-                print(reply_from_text)
                 pk = utils.is_answer_tweet(reply_from_text)
+                print(pk)
                 if pk > -1:
                     if utils.is_correct_answer(pk,status['text']):
                         tweet = "問題" + str(pk) + "正解です！"
