@@ -79,24 +79,23 @@ class TwitterEndPointView(View):
                 reply_from_text = None
 
             state = utils.ClassifyTweet(status['text'])
-            print(state)
             if state == "CMD:markov":
-                # とりあえずマルコフで生成
-                markov = Markov()
-                tweet = markov.make_sentence()
-                tweet= tweet.strip('[BOS]').strip("\n")
-            elif state == "CMD:weather":
-                tweet = utils.GenWeatherTweet("Yokosuka")
-            else:
                 pk = utils.is_answer_tweet(reply_from_text)
-                print("pk is ",pk)
+
                 if pk > -1:
                     if utils.is_correct_answer(pk,status['text']):
                         tweet = "問題" + str(pk) + "正解です！"
                     else:
                         tweet = "問題" + str(pk) + "不正解です・・・"
                 else:
-                    tweet = state
+                    # とりあえずマルコフで生成
+                    markov = Markov()
+                    tweet = markov.make_sentence()
+                    tweet= tweet.strip('[BOS]').strip("\n")
+            elif state == "CMD:weather":
+                tweet = utils.GenWeatherTweet("Yokosuka")
+            else:
+                tweet = state
 
             # リプライ送信
             res = api.update_status(
