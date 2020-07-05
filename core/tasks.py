@@ -3,6 +3,7 @@ from django.conf import settings
 from celery import shared_task
 import random
 import tweepy
+from core.models import Quiz
 
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
@@ -23,7 +24,7 @@ def quiz_publish():
     random_list = []
     for i in range(count):
         random_list.append(i)
-    
+
     random.shuffle(random_list)
 
     for i in random_list:
@@ -33,6 +34,3 @@ def quiz_publish():
             break
         except:
             continue
-
-
-
