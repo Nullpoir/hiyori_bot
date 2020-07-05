@@ -89,7 +89,7 @@ class TwitterEndPointView(View):
                 tweet = utils.GenWeatherTweet("Yokosuka")
             else:
                 pk = utils.is_answer_tweet(reply_from_text)
-                print("pk is "pk)
+                print("pk is ",pk)
                 if pk > -1:
                     if utils.is_correct_answer(pk,status['text']):
                         tweet = "問題" + str(pk) + "正解です！"
