@@ -74,6 +74,7 @@ class TwitterEndPointView(View):
 
             print(status['text'])
             try:
+                print(status.in_reply_to_status_id)
                 reply_from_text = api.get_status(status['in_reply_to_status_id'])._json['text']
             except:
                 reply_from_text = None
