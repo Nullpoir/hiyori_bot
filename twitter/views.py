@@ -78,7 +78,7 @@ class TwitterEndPointView(View):
                 reply_from_text = api.get_status(status['in_reply_to_status_id']).text
             except:
                 reply_from_text = None
-
+            print("reply_text:",reply_from_text)
             state = utils.ClassifyTweet(status['text'])
             if state == "CMD:markov":
                 # とりあえずマルコフで生成
