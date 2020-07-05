@@ -73,10 +73,7 @@ class TwitterEndPointView(View):
                 return JsonResponse({"State":"OK"})
 
             print(status['text'])
-            try:
-                print(api.get_status(status['in_reply_to_status_id']))
-            except:
-                pass
+            print(api.get_status(status['in_reply_to_status_id']))
             state = utils.ClassifyTweet(status['text'])
             if state == "CMD:markov":
                 # とりあえずマルコフで生成
@@ -112,7 +109,7 @@ class TwitterEndPointView(View):
                 api.create_friendship(id)
 
         elif req.get('direct_message_events') != None:
-            
+
             sender_id = req['direct_message_events'][0]['message_create']['sender_id']
             user_id = req['direct_message_events'][0]['message_create']['target']['recipient_id']
             message =  req['direct_message_events'][0]['message_create']['message_data']['text']
