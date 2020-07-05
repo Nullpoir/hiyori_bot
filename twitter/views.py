@@ -87,6 +87,7 @@ class TwitterEndPointView(View):
             elif state == "CMD:weather":
                 tweet = utils.GenWeatherTweet("Yokosuka")
             else:
+                print(reply_from_text)
                 pk = utils.is_answer_tweet(reply_from_text)
                 if pk > -1:
                     if utils.is_correct_answer(pk,status['text']):
