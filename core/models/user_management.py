@@ -36,10 +36,10 @@ class User(models.Model):
         default=False
     )
 
-    def save(self):
+    def save(self,*args,**kwargs):
         # 更新がある度に更新日を変更
-        update_at = datetime.now
-        super(User, self).save()
+        self.update_at = datetime.now()
+        super(User, self).save(*args, **kwargs)
     def twitter_screen_name(self):
          # 認証
         auth = tweepy.OAuthHandler(CK, CS)
