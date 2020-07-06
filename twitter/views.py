@@ -78,7 +78,7 @@ class TwitterEndPointView(View):
             except:
                 reply_from_text = None
 
-            state = utils.ClassifyTweet(status['text'])
+            state = utils.ClassifyTweet(status['text'],reply_from_text)
             if state == "CMD:markov":
                 # とりあえずマルコフで生成
                 markov = Markov()

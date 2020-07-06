@@ -4,7 +4,7 @@ from twitter.TextSanitize import TextSanitize
 import random
 from .IsAnswerTweet import *
 
-def ClassifyTweet(text):
+def ClassifyTweet(text,reply_from_text):
     #テキスト整形
     text = TextSanitize(text)
     # print("sanitized-text:",text)
