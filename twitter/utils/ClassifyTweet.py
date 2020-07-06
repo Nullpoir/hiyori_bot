@@ -8,10 +8,10 @@ def ClassifyTweet(text,reply_from_text):
     #テキスト整形
     text = TextSanitize(text)
     # print("sanitized-text:",text)
-    pk = utils.is_answer_tweet(reply_from_text)
+    pk = is_answer_tweet(reply_from_text)
 
     if pk > -1:
-        if utils.is_correct_answer(pk,text):
+        if is_correct_answer(pk,text):
             return "問題" + str(pk) + "正解です！"
         else:
             return "問題" + str(pk) + "不正解です・・・"
