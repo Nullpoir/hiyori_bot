@@ -28,7 +28,7 @@ def quiz_publish():
     random.shuffle(random_list)
 
     for i in random_list:
-        tweet = '問題' + str(query_set[i].pk) + '\n' + query_set[i].question + '\n' + '#ひよりちゃんクイズ'
+        tweet = '問題' + str(query_set[i].pk) + '\n' + query_set[i].question + '\n' + '#ひよちの可愛いクイズ'
         try:
             api.update_status(tweet)
             break
