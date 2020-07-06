@@ -15,7 +15,7 @@ class test_utils(TestCase):
         count = 1
         for t,e in zip(datasets.CLASSIFICATION_TESTS,datasets.CLASSIFICATION_ANSWERS):
             print(count)
-            self.assertEqual(ClassifyTweet(t),e)
+            self.assertEqual(ClassifyTweet(t,None),e)
             count += 1
     def test_ApiConnection(self):
         self.assertNotEqual(ApiConnection("Yokosuka"),"すみません。わかりませんでした・・・")
