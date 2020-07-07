@@ -20,4 +20,11 @@ class Quiz(models.Model):
     # クイズ
     question = models.CharField(verbose_name='問題文',max_length=131)
     answers = models.TextField(verbose_name="正解文")
+
+    def save(self,*args,**kwargs):
+        # 更新がある度に更新日を変更
+        self.update_at = datetime.now()
+        super(Quiz, self).save(*args, **kwargs)
     
+    def __str__(self):
+        return self.question[:30]
