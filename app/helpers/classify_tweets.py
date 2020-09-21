@@ -29,4 +29,4 @@ def classify_tweets(text,reply_from_text):
             print()
             return "CMD:weather"
         else:
-            return "CMD:markov"
+            return "CMD:others"

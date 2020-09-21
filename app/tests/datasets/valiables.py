@@ -42,7 +42,7 @@ MUGITEA」
 ]
 #テキスト分類課題用正解データ
 CLASSIFICATION_ANSWERS = [
-    "CMD:markov",
+    "CMD:others",
     "CMD:weather",
     "CMD:weather",
     "CMD:weather",

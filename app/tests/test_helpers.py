@@ -14,7 +14,7 @@ class test_helpers(TestCase):
         count = 1
         for t,e in zip(datasets.CLASSIFICATION_TESTS,datasets.CLASSIFICATION_ANSWERS):
             print(count)
-            if classify_tweets(t,None) == 'CMD:markov':
+            if classify_tweets(t,None) == 'CMD:others':
                 talksets = TalkSet.objects.all()
                 for ts in talksets:
                     if t == ts.trigger:

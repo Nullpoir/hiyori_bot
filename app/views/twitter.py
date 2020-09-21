@@ -79,10 +79,12 @@ class TwitterEndPointView(View):
                 reply_from_text = None
 
             state = helpers.classify_tweets(status['text'],reply_from_text)
-            if state == "CMD:markov":
+            if state == "CMD:others":
+                # 定型文に一致しているか調べる
                 talksets = TalkSet.objects.all()
                 for t in talksets:
-                    if status['text'] == t.trigger:
+                    text = text_sanitize(status['text'])
+                    if text == t.trigger:
                         replies = t.reply.split(',')
                         index_length = len(replies) - 1
                         key = random.randint(0,index_length)
