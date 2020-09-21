@@ -1,5 +1,4 @@
 import re
-import random
 from .is_answer_tweet import *
 
 try:

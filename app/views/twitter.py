@@ -11,6 +11,7 @@ import requests
 import os
 import hashlib,hmac,base64
 import tweepy
+import random
 from app.markov.markov import Markov
 from app import helpers
 from app.models import *
