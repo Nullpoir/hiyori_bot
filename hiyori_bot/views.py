@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from twitter.models import TalkSet
+from app.models import TalkSet
 
 #ランディングページ
 class IndexView(TemplateView):

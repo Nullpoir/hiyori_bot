@@ -61,9 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_beat',
-    'twitter.apps.TwitterConfig',
-    'discord.apps.DiscordConfig',
-    'core.apps.CoreConfig',
+    'app.apps.AppConfig',
 ]
 
 MIDDLEWARE = [

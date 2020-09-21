@@ -2,7 +2,7 @@ hiyori_bot/settings/.env
 db.sqlite3
 media/
 auth/
-twitter/markov_chain/source.txt
-twitter/markov_chain/pre_source.txt
+twitter/markov/source.txt
+twitter/markov/pre_source.txt
 node_modules/
 **/__pycache__/**
