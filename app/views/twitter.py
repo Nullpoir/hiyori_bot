@@ -82,11 +82,17 @@ class TwitterEndPointView(View):
             if state == "CMD:markov":
                 talksets = TalkSet.objects.all()
                 for t in talksets:
-                    if text == t.trigger:
+                    if state == t.trigger:
                         replies = t.reply.split(',')
                         index_length = len(replies) - 1
                         key = random.randint(0,index_length)
-                        return replies[key]
+                        tweet = replies[key]
+                        res = api.update_status(
+                            status=tweet,
+                            in_reply_to_status_id=status['id'],
+                            auto_populate_reply_metadata=True
+                        )
+                        return JsonResponse({"State":"OK"})
                 # とりあえずマルコフで生成
                 markov = Markov()
                 tweet = markov.make_sentence()
