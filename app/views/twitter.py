@@ -82,7 +82,7 @@ class TwitterEndPointView(View):
             if state == "CMD:markov":
                 talksets = TalkSet.objects.all()
                 for t in talksets:
-                    if state == t.trigger:
+                    if status['text'] == t.trigger:
                         replies = t.reply.split(',')
                         index_length = len(replies) - 1
                         key = random.randint(0,index_length)
