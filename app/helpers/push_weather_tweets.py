@@ -55,14 +55,14 @@ def get_info_from_api(location):
     weather_dict = response.json()
     if response.status_code != 200:
         return "すみません。わかりませんでした・・・"
-
+    direction_subscribe = int(weather_dict['wind']['deg'] / 22.5)
     weather_data = [
         WEATHER[weather_dict['weather'][0]['main']],
         round(weather_dict['main']['temp']-abs_zero,1),
         round(weather_dict['main']['feels_like']-abs_zero,1),
         weather_dict['main']['humidity'],
         weather_dict['wind']['speed'],
-        DIRECTION[int(weather_dict['wind']['deg']/22.5)],
+        DIRECTION[15 if direction_subscribe == 16 else direction_subscribe],
     ]
     return weather_data
 

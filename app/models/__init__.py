@@ -1,3 +1,3 @@
-from .users import *
-from .quizes import *
-from .talksets import *
+from .user import *
+from .quiz import *
+from .talkset import *

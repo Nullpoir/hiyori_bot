@@ -10,7 +10,7 @@ from app.models import User
 import random
 from app.models import Quiz
 
-TWITTER_BASE_URL = "https://app.com/"
+TWITTER_BASE_URL = "https://twitter.com/"
 CK = settings.TWITTER_CONSUMER_KEY
 CS = settings.TWITTER_CONSUMER_SECRET
 AK = settings.TWITTER_TOKEN

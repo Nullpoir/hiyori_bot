@@ -25,7 +25,7 @@ class test_quiz(TestCase):
         for i in random_list:
             tweet = '問題' + str(query_set[i].pk) + '\n' + query_set[i].question
             try:
-                print(tweet)
+                # print(tweet)
                 break
             except:
                 continue

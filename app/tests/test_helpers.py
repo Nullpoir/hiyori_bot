@@ -13,7 +13,7 @@ class test_helpers(TestCase):
         )
         count = 1
         for t,e in zip(datasets.CLASSIFICATION_TESTS,datasets.CLASSIFICATION_ANSWERS):
-            print(count)
+            # print(count)
             if classify_tweets(t,None) == 'CMD:others':
                 talksets = TalkSet.objects.all()
                 for ts in talksets:
@@ -40,7 +40,7 @@ class test_helpers(TestCase):
             trigger_body=trigger,
             reply="あはははh,おほほほh,fjnqwiofn,fwefnioewfnoiw,fwfgiuweb"
         )
-        print(classify_tweets(trigger,''))
+        # print(classify_tweets(trigger,''))
     def test_is_answer_tweet(self):
         for q,a in zip(datasets.CLASSIFICATION_IS_ANS,datasets.CLASSIFICATION_IS_ANS_ANSWER):
             pk = is_answer_tweet(q)
