@@ -139,7 +139,7 @@ class TwitterEndPointView(View):
                 # DM送信
                 user = User.objects.get(twitter_id=str(sender_id))
                 if user.is_active:
-                    cmd = helpers.classify_direct_message(message)
+                    cmd = helpers.classify_direct_messages(message)
                     if cmd == 'CMD:DAILY':
                         if user.is_daily:
                             reply = "わかりました。きらファンデイリーの通知をやめますね..."
