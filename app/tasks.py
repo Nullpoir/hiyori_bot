@@ -158,6 +158,7 @@ def kirafan_daily_notification():
         tweet = screen_name + '\n' + 'あ、あの！きらファンデイリー遂行確認のお時間です・・・'
         try:
             res = api.update_status(tweet)
+            print('send to' + screen_name)
         except:
             pass
 
