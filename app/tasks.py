@@ -62,7 +62,7 @@ def sheduled_tweet():
         try:
             res = api.update_status(tweet)
             is_end = True
-        except TweepError as e:
+        except TweepyError as e:
             if e.get("message") == "Status is a duplicate.":
                 res = api.update_status(tweet)
     print(res)
@@ -144,7 +144,7 @@ def unfollow_task():
             user.is_active = False
             user.save()
 
-#自動フォロー解除
+#きらファンデイリー遂行確認
 @shared_task
 def kirafan_daily_notification():
     # 認証
