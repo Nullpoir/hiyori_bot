@@ -1,5 +1,5 @@
 from hiyori_bot.settings.celery import app
-from app.helpers.push_weather_tweets import push_weather_tweets
+from app.helpers.twitter.push_weather_tweets import push_weather_tweets
 from django.conf import settings
 from celery import shared_task
 import tweepy

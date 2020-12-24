@@ -6,7 +6,7 @@ import random
 import json
 import os
 if __name__ == "__main__":
-    from app.helpers.get_markov_model_helpers import get_markov_model
+    from app.helpers.twitter.get_markov_model_helpers import get_markov_model
 else:
     from .helpers.get_markov_model_helpers import get_markov_model
 

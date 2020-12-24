@@ -1,7 +1,7 @@
 from django.db import models
 import re
 try:
-    from app.helpers.text_sanitize import *
+    from app.helpers.twitter.text_sanitize import *
 except ImportError:
     pass
 
