@@ -77,10 +77,10 @@ def get_maiko_tweets():
     api = tweepy.API(auth)
 
     #クエリ生成
-    id='uma401'
+    uchino_id = 'uma401'
+    anime_official_id = 'slowloop_tv'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
-    query = "from:" + id + " -filter:retweets since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
-
+    query = f'from:{anime_official_id} OR from:{uchino_id} -filter:retweets since: {since.strftime("%Y-%m-%d_%H:%M:%S_UTC")}'
 
     #Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL_MAIKO)
