@@ -87,8 +87,7 @@ def get_maiko_tweets():
     #まいこ先生Tweet取得
     for status in api.search(q=query):
         #自己リプとリプじゃ無いツイートは許可
-        print(('@' + id) in status.text) or ( not('@' in status.text))
-        if (('@' + id) in status.text) or ( not('@' in status.text)):
+        if (f'@{uchino_id}' in status.text) or (f'@{anime_official_id}' in status.text) or ( not('@' in status.text)):
             #文章生成
             discord_post_text = get_tweet_source(status)
             print(discord_post_text)
