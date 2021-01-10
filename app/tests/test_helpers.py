@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.helpers import *
+from app.helpers.twitter import *
 from . import datasets
 from app.models import *
 # Create your tests here.

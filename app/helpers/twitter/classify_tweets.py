@@ -2,11 +2,6 @@ import re
 from .is_answer_tweet import *
 
 try:
-    from ..models import TalkSet
-except ImportError:
-    pass
-
-try:
     CHECK_DOUBLE_IMPORT_TEXT_SANITIZE
 except NameError:
     from .text_sanitize import *

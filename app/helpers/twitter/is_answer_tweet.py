@@ -1,5 +1,5 @@
 from app.models import Quiz
-from app.helpers.text_sanitize import text_sanitize
+from app.helpers.twitter.text_sanitize import text_sanitize
 
 def is_answer_tweet(text):
     if text is None:

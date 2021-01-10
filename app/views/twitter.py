@@ -12,8 +12,8 @@ import os
 import hashlib,hmac,base64
 import tweepy
 import random
-from app.markov.markov import Markov
-from app import helpers
+from app.shared.markov import Markov
+import app.helpers.twitter as helpers
 from app.models import *
 
 CK = settings.TWITTER_CONSUMER_KEY
