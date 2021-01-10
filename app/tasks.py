@@ -3,7 +3,7 @@ from app.helpers.twitter.push_weather_tweets import push_weather_tweets
 from django.conf import settings
 from celery import shared_task
 import tweepy
-from .markov.markov import Markov
+from app.shared.markov import Markov
 import datetime
 from discordwebhook import Discord
 from app.models import User
