@@ -6,9 +6,9 @@ import random
 import json
 import os
 if __name__ == "__main__":
-    from app.helpers.twitter.get_markov_model_helpers import get_markov_model
+    from app.shared.markov.get_markov_model import get_markov_model
 else:
-    from .helpers.get_markov_model_helpers import get_markov_model
+    from .get_markov_model import get_markov_model
 
 class Markov_pass_error(Exception):
     pass
