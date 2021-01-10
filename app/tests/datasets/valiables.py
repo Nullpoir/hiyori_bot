@@ -2,39 +2,39 @@ from app.helpers import *
 
 #テキスト分類課題用テストデータ
 CLASSIFICATION_TESTS = [
-"""@mHiyori0324
+"""@mHiyori0104
 今日の天気は？""",
-"""@mHiyori0324
+"""@mHiyori0104
 天気を教えて、ひよりちゃん""",
-"""@mHiyori0324
+"""@mHiyori0104
 天気を教えて、ひよりちゃん？""",
-"""@mHiyori0324
+"""@mHiyori0104
 天気を教えて、ひよりちゃん?""",
-"""@mHiyori0324
+"""@mHiyori0104
 天気を教えて、ひよりちゃん
 
 
 
 """,
-"""@mHiyori0324
+"""@mHiyori0104
 MUGI TEA
 """,
-"""@mHiyori0324
+"""@mHiyori0104
 MUGITEA
 
 
 """,
-"""@mHiyori0324
+"""@mHiyori0104
 「MUGITEA」
 
 
 """,
-"""@mHiyori0324
+"""@mHiyori0104
 「MUGITEA
 
 
 """,
-"""@mHiyori0324
+"""@mHiyori0104
 MUGITEA」
 
 

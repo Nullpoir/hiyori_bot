@@ -18,7 +18,7 @@ AS = settings.TWITTER_TOKEN_SECRET
 MY_ID = settings.MY_ID
 DISCORD_WEBHOOK_URL_MAIKO = settings.DISCORD_WEBHOOK_URL_MAIKO
 DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
-SCREEN_NAME = 'mHiyori0324'
+SCREEN_NAME = 'mHiyori0104'
 
 def get_tweet_source(status):
     return TWITTER_BASE_URL + status.user.screen_name + "/status/" + status.id_str
@@ -77,18 +77,17 @@ def get_maiko_tweets():
     api = tweepy.API(auth)
 
     #クエリ生成
-    id='uma401'
+    uchino_id = 'uma401'
+    anime_official_id = 'slowloop_tv'
     since = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
-    query = "from:" + id + " -filter:retweets since:" + since.strftime("%Y-%m-%d_%H:%M:%S_UTC")
-
+    query = f'from:{anime_official_id} OR from:{uchino_id} -filter:retweets since:{since.strftime("%Y-%m-%d_%H:%M:%S_UTC")}'
 
     #Discord WebHook接続
     discord = Discord(url=DISCORD_WEBHOOK_URL_MAIKO)
     #まいこ先生Tweet取得
     for status in api.search(q=query):
         #自己リプとリプじゃ無いツイートは許可
-        print(('@' + id) in status.text) or ( not('@' in status.text))
-        if (('@' + id) in status.text) or ( not('@' in status.text)):
+        if (f'@{uchino_id}' in status.text) or (f'@{anime_official_id}' in status.text) or ( not('@' in status.text)):
             #文章生成
             discord_post_text = get_tweet_source(status)
             print(discord_post_text)
