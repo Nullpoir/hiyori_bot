@@ -18,7 +18,7 @@ AS = settings.TWITTER_TOKEN_SECRET
 MY_ID = settings.MY_ID
 DISCORD_WEBHOOK_URL_MAIKO = settings.DISCORD_WEBHOOK_URL_MAIKO
 DISCORD_WEBHOOK_URL_GOODIES = settings.DISCORD_WEBHOOK_URL_GOODIES
-SCREEN_NAME = 'mHiyori0324'
+SCREEN_NAME = 'mHiyori0104'
 
 def get_tweet_source(status):
     return TWITTER_BASE_URL + status.user.screen_name + "/status/" + status.id_str
