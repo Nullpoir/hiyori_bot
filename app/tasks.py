@@ -8,28 +8,35 @@ def get_tweet_source(status):
 
 # 毎朝4時に実行させるタスク
 @shared_task
-morning_yokosuka_weather_report()
+def morning_yokosuka_weather_report_job():
+    morning_yokosuka_weather_report()
 
 # 定時ツイートタスク
 @shared_task
-sheduled_tweet()
+def sheduled_tweet_job():
+    sheduled_tweet()
 
 # まいこ先生tweet収集
 @shared_task
-get_gyokuon_tweets()
+def get_gyokuon_tweets_job():
+    get_gyokuon_tweets()
 
 
 #グッズ情報収集
 @shared_task
-get_goodies_tweets():
+def get_goodies_tweets():
+    get_goodies_tweets()
 
 #自動フォロー解除
 @shared_task
-unfollow_task()
+def unfollow_task():
+    unfollow_task()
 
 #きらファンデイリー遂行確認
 @shared_task
-kirafan_daily_notification()
+def kirafan_daily_notification():
+    kirafan_daily_notification()
 # クイズ発出
 @shared_task
-quiz_publish()
+def quiz_publish_job()
+    quiz_publish()
