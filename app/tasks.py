@@ -38,5 +38,5 @@ def kirafan_daily_notification():
     kirafan_daily_notification()
 # クイズ発出
 @shared_task
-def quiz_publish_job()
+def quiz_publish_job():
     quiz_publish()
