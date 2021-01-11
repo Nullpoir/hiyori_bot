@@ -4,7 +4,6 @@ from discordwebhook import Discord
 from .commons import *
 
 # まいこ先生tweet収集
-@shared_task
 def get_gyokuon_tweets():
     # 認証
     auth = tweepy.OAuthHandler(CK, CS)

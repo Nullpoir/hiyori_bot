@@ -4,7 +4,6 @@ from app.models import Quiz
 from .commons import *
 
 # クイズ発出
-@shared_task
 def quiz_publish():
     # 認証
     auth = tweepy.OAuthHandler(CK, CS)

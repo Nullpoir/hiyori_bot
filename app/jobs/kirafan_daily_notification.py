@@ -3,7 +3,6 @@ from app.models import User
 from .commons import *
 
 #きらファンデイリー遂行確認
-@shared_task
 def kirafan_daily_notification():
     # 認証
     auth = tweepy.OAuthHandler(CK, CS)
