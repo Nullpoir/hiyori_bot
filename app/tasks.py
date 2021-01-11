@@ -29,13 +29,14 @@ def get_goodies_tweets():
 
 #自動フォロー解除
 @shared_task
-def unfollow_task():
+def unfollow_task_job():
     unfollow_task()
 
 #きらファンデイリー遂行確認
 @shared_task
 def kirafan_daily_notification():
     kirafan_daily_notification()
+
 # クイズ発出
 @shared_task
 def quiz_publish_job():
