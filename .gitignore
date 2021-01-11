@@ -4,6 +4,6 @@ media/
 auth/
 app/shared/markov/source.txt
 app/shared/markov/source.md
-app/shared//markov/pre_source.txt
+app/shared/markov/pre_source.txt
 node_modules/
 **/__pycache__/**
