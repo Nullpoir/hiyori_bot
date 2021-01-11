@@ -3,6 +3,7 @@ db.sqlite3
 media/
 auth/
 app/shared/markov/source.txt
+app/shared/markov/source.md
 app/shared//markov/pre_source.txt
 node_modules/
 **/__pycache__/**
