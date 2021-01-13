@@ -24,7 +24,7 @@ def get_gyokuon_tweets_job():
 
 #グッズ情報収集
 @shared_task
-def get_goodies_tweets():
+def get_goodies_tweets_job():
     get_goodies_tweets()
 
 #自動フォロー解除
@@ -34,7 +34,7 @@ def unfollow_task_job():
 
 #きらファンデイリー遂行確認
 @shared_task
-def kirafan_daily_notification():
+def kirafan_daily_notification_job():
     kirafan_daily_notification()
 
 # クイズ発出
